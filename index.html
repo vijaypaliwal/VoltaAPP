@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="AngularAuthApp">
+<head>
+
+    <meta name="keywords" content="angularjs,SPA,Single Page Application,refresh tokens,authentication,bearer token authentication,OWIN,bootstrap,bootstrap ui,tutorial,JS framework,ASP.NET WEB API 2,Taiseer Joudeh" />
+    <meta name="description" content="SPA built using angularjs,authentication is done using bearer token,back end built using Asp.net web api 2 and OWIN Framework,creatd by Taiseer Joudeh" />
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <title>Voltameter App </title>
+    <link href="content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="content/css/site.css" rel="stylesheet" />
+    <link href="content/css/toastr.css" rel="stylesheet" />
+    <link href="content/css/loading-bar.css" rel="stylesheet" />
+    <link href="content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="content/css/social-buttons.css" rel="stylesheet" />
+     <link href="content/css/idangerous.swiper.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <style>
+        body {
+            line-height: initial !important;
+        }
+
+        .text-primary {
+            font-size: 15px;
+            white-space: normal;
+            color: #fff;
+            text-align: left;
+            min-height: 90px;
+        }
+
+        .hookdiv {
+            font-size: 50px;
+            width: 100%;
+            text-align: center;
+            overflow: hidden;
+            height: 50px;
+            color: #ccc;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        .highcharts-button {
+            display: none;
+        }
+
+        .highcharts-legend-item {
+            display: none;
+        }
+
+        .weather li {
+
+            font-size:14px;
+        }
+        #weather2 img
+        {
+            height:75px;
+        }
+
+        .btn {
+            padding: 13px 15px;
+        }
+
+        .form-horizontal .control-label
+        {
+            text-align:left;
+            font-size:15px;
+        }
+    </style>
+
+    <style>
+/* Demo Syles */
+
+.device {
+  width: 100%;
+ 
+ 
+  position: relative;
+  box-shadow: 0px 0px 5px #000;
+}
+.device .arrow-left {
+  background: url(img/arrows.png) no-repeat left top;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -15px;
+  width: 17px;
+  height: 30px;
+}
+.device .arrow-right {
+  background: url(img/arrows.png) no-repeat left bottom;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -15px;
+  width: 17px;
+  height: 30px;
+}
+.swiper-container {
+ 
+  width: 100%;
+ 
+}
+.content-slide {
+  padding: 20px;
+  color: #000;
+}
+.title {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+.pagination {
+  position: absolute;
+  left: 0;
+  text-align: center;
+  bottom:5px;
+  width: 100%;
+}
+.swiper-pagination-switch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #999;
+  box-shadow: 0px 1px 2px #555 inset;
+  margin: 0 3px;
+  cursor: pointer;
+}
+.swiper-active-switch {
+  background: #fff;
+}
+
+.swiper-slide
+{
+    height:auto !important;
+}
+
+        .swiper-wrapper {
+             height:auto !important;
+        }
+  </style>
+</head>
+<body data-ng-controller="indexController">
+
+    <nav style="color:#fff;" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button data-ng-show="authentication.isAuth" type="button" class="navbar-toggle  collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                       <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} {{authentication.name}} <i class="fa fa-th-list"></i></span>
+                </button>
+                <a class="navbar-brand">
+                 Volt@</a>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul data-ng-show="authentication.isAuth" class="nav navbar-nav">
+                    <li ><a href="#/graph"><i class="fa fa-home"></i> {{ 'home' | translate }}</a></li>
+                    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
+                    <li><a href="#/alert">{{ 'alerts' | translate }}</a></li>
+                    <li><a href="#/comparison">Comparison View</a></li>
+
+                         <li><a><i class="fa fa-cog"></i>&nbsp; {{ 'Setting' | translate }}</a></li>
+                              <li><a href="#/browserdetail"><i class="fa fa-globe"></i>&nbsp; {{ 'browserdetails' | translate }}</a></li>
+                            <li><a data-ng-click="logOut()"><i class="fa fa-sign-out"></i>&nbsp;{{ 'Signout' | translate }}</a></li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li></li>
+                    <li data-ng-hide="authentication.isAuth">
+                        <div style="margin-top: 10px; cursor: pointer; color:#fff;">
+                            <span>Language - </span>
+                           &nbsp; <span ng-click="changeLanguage('en')">
+                                <img src="usa.png" alt="Alternate Text" /></span> &nbsp;
+                           <span ng-click="changeLanguage('it')">
+                               <img src="RussianFlag.gif" alt="Alternate Text" /></span>  &nbsp;
+                             <span ng-click="changeLanguage('sp')">
+                               <img src="spain.png" alt="Alternate Text" /></span>
+                        </div>
+
+                    </li>
+                    <li data-ng-show="authentication.isAuth">
+
+
+                        <!--<div style="margin-top:5px;" class="btn-group">
+                            <button class="btn btn-primary">
+                                <img style="width:25px;" src="{{countryicon}}" alt="Alternate Text" /> &nbsp;<span ng-bind="languageText"></span></button>
+                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a ng-click="changeLanguage('en')"><img style="width:25px;" src="usa.png" alt="Alternate Text" /> English</a> </li>
+                                 <li><a ng-click="changeLanguage('it')"><img src="RussianFlag.gif" alt="Alternate Text" /> {{ 'russiantext' | translate }}</a> </li>
+                                 <li><a ng-click="changeLanguage('sp')"><img src="spain.png" alt="Alternate Text" /> {{ 'spanishtext' | translate }}</a> </li>
+                            </ul>
+                        </div>-->
+
+
+
+
+                    </li>
+                    <li data-ng-show="authentication.isAuth" class="dropdown">
+                       
+                        <ul data-ng-show="authentication.isAuth" class="dropdown-menu" role="menu">
+                       
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div data-ng-view="">
+            
+        </div>
+
+        
+    </div>
+
+
+   
+
+
+    <!--<div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>-->
+
+   
+
+        
+
+       
+
+
+    <!-- 3rd party libraries -->
+       <script src="scripts/jquery-1.11.0.min.js"></script>
+
+    
+
+
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/bootbox.js"></script>
+
+
+
+
+
+
+    <script src="scripts/toastr.js"></script>
+
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-bottom-right",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+    </script>
+
+
+
+
+
+
+
+    <script src="scripts/highcharts.js"></script>
+    <script src="scripts/exporting.js"></script>
+
+    <script type="text/javascript" src="scripts/raphael-min.js"></script>
+    <script type="text/javascript" src="scripts/kuma-gauge.jquery.js"></script>
+
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="scripts/loading-bar.min.js"></script>
+    <script src="scripts/angular-translate.js"></script>
+
+    <script src="scripts/angular-translate-loader-static-files.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bower-angular-translate-loader-url/2.0.0/angular-translate-loader-url.js"></script>
+
+    <script type="text/javascript" language="javascript" src="scripts/jquery.cookie.js"></script>
+
+
+    <script src="scripts/date.js"></script>
+    <script src="scripts/moment.min.js"></script>
+    <script src="scripts/ui-bootstrap-0.8.0.js"></script>
+    <script src="scripts/ui-bootstrap-tpls-0.8.0.js"></script>
+    <script data-require="angular-resource@1.2.14" data-semver="1.2.14" src="http://code.angularjs.org/1.2.14/angular-resource.js"></script>
+    <!-- Load app main script -->
+    <script src="app/app.js?v=2"></script>
+    <script src="scripts/multilangual.js"></script>
+
+    <!-- Load services -->
+    <script src="app/services/authInterceptorService.js?v=2"></script>
+    <script src="app/services/authService.js?v=2"></script>
+
+    <script src="app/services/tokensManagerService.js?v=2"></script>
+
+    <!-- Load controllers -->
+
+    <script src="app/controllers/indexController.js?v=2"></script>
+    <script src="app/controllers/angularTranslationService.js"></script>
+    <script src="app/controllers/loginController.js?v=2"></script>
+    <script src="app/controllers/signupController.js?v=2"></script>
+    <script src="app/controllers/graphcontroller.js"></script>
+    <script src="app/controllers/forgotcontroller.js"></script>
+    <script src="app/controllers/changepasswordcontroller.js"></script>
+    <script src="app/controllers/browserdetailcontroller.js"></script>
+    <script src="app/controllers/householdlcontroller.js"></script>
+     <script src="app/controllers/alertcontroller.js"></script>
+    <script src="app/controllers/comparisioncontroller.js"></script>
+
+    
+   
+</body>
+</html>

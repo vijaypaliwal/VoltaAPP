@@ -1,0 +1,29 @@
+﻿
+		
+
+        #container
+        {
+            margin-top:10px !important;
+        }
+
+	   #CurrentDate
+    {
+        font-size:18px;
+        margin-bottom:20px;
+        color:rgba(62, 106, 126, 1);
+        text-align:center;
+    }
+    .label
+    {
+        font-size:17px;
+    }
+    .mydate {
+
+        border: 1px solid #ccc;
+display: inline-block;
+padding: 7px;
+background: #388f58;
+color: #fff;
+margin-top: 7px;
+
+    }

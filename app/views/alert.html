@@ -1,0 +1,99 @@
+﻿<link href="content/css/graph.css" rel="stylesheet" />
+<script src="scripts/jquery.simpleWeather.js"></script>
+<script src="scripts/Weathersetting.js"></script>
+<br />
+<div class="row">
+        <div class="col-md-9">
+            <br />
+            <div id="CurrentDate"></div>
+          <!--     <a class="btn btn-xs btn-success" data-ng-click="myculture('RS')">RS</a>
+                <a class="btn btn-xs btn-success" data-ng-click="myculture('US')">US</a>-->
+        </div>
+        <div class="col-md-3">
+            <div>
+                  <div style="margin-bottom:0px;" id="weather2"></div>
+	            <!-- <p>&nbsp;</p>
+	             <div id="weather"></div>
+                -->
+            </div>
+        </div>
+    </div>
+
+  <h3>Alert Configuration</h3>
+  <hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <p>High Usage - Hour</p>
+    </div>
+     <div class="col-md-4">
+         <input id="hr" ng-model="alert.highusagehr" type="checkbox" />
+     </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <p>High Usage - Day</p>
+    </div>
+     <div class="col-md-4">
+         <input id="day" ng-model="alert.highusageday"  type="checkbox" />
+     </div>
+
+</div>
+
+
+
+<h3>Appliance Left on</h3>
+<div class="row">
+    <div class="col-md-4">
+        <p>Large consumes (e.g. Oven, Heater)</p>
+    </div>
+     <div class="col-md-4">
+         <input type="checkbox" value="" />
+     </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <p>Computers, TV, games, Consoles, etc</p>
+    </div>
+     <div class="col-md-4">
+         <input type="checkbox" value="" />
+     </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <p>Lights</p>
+    </div>
+     <div class="col-md-4">
+         <input type="checkbox" value="" />
+     </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <p>Email Destination</p>
+    </div>
+     <div class="col-md-4">
+         <input ng-disabled="true" type="text" value="{{email}}" />
+     </div>
+
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-success" data-ng-click="savealert()"><i class="fa fa-check"></i> Save Alert</a>
+          <a href="#/graph" class="btn btn-danger" ><i class="fa fa-times"></i> cancel</a>
+    </div>
+</div>
+  
+
+
