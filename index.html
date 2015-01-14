@@ -68,6 +68,10 @@
             text-align:left;
             font-size:15px;
         }
+        p{
+            margin:0px;
+        }
+
     </style>
 
     <style>
@@ -167,47 +171,7 @@
                             <li><a data-ng-click="logOut()"><i class="fa fa-sign-out"></i>&nbsp;{{ 'Signout' | translate }}</a></li>
 
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li></li>
-                    <li data-ng-hide="authentication.isAuth">
-                        <div style="margin-top: 10px; cursor: pointer; color:#fff;">
-                            <span>Language - </span>
-                           &nbsp; <span ng-click="changeLanguage('en')">
-                                <img src="usa.png" alt="Alternate Text" /></span> &nbsp;
-                           <span ng-click="changeLanguage('it')">
-                               <img src="RussianFlag.gif" alt="Alternate Text" /></span>  &nbsp;
-                             <span ng-click="changeLanguage('sp')">
-                               <img src="spain.png" alt="Alternate Text" /></span>
-                        </div>
-
-                    </li>
-                    <li data-ng-show="authentication.isAuth">
-
-
-                        <!--<div style="margin-top:5px;" class="btn-group">
-                            <button class="btn btn-primary">
-                                <img style="width:25px;" src="{{countryicon}}" alt="Alternate Text" /> &nbsp;<span ng-bind="languageText"></span></button>
-                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a ng-click="changeLanguage('en')"><img style="width:25px;" src="usa.png" alt="Alternate Text" /> English</a> </li>
-                                 <li><a ng-click="changeLanguage('it')"><img src="RussianFlag.gif" alt="Alternate Text" /> {{ 'russiantext' | translate }}</a> </li>
-                                 <li><a ng-click="changeLanguage('sp')"><img src="spain.png" alt="Alternate Text" /> {{ 'spanishtext' | translate }}</a> </li>
-                            </ul>
-                        </div>-->
-
-
-
-
-                    </li>
-                    <li data-ng-show="authentication.isAuth" class="dropdown">
-                       
-                        <ul data-ng-show="authentication.isAuth" class="dropdown-menu" role="menu">
-                       
-                        </ul>
-                    </li>
-                </ul>
+                
             </div>
             <!--/.nav-collapse -->
         </div>
@@ -215,6 +179,7 @@
 
 
     <div class="container">
+
         <div data-ng-view="">
             
         </div>

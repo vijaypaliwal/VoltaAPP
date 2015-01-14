@@ -9,7 +9,7 @@
 	   #CurrentDate
     {
         font-size:18px;
-        margin-bottom:20px;
+        margin-bottom:-20px;
         color:rgba(62, 106, 126, 1);
         text-align:center;
     }

@@ -231,6 +231,10 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     };
     var iw = $('body').innerWidth();
 
+    var height = $(window).height();
+
+    alert(height);
+
    
 
     $scope.updateFormateforGraphforLang = function () {
@@ -281,7 +285,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 radius: iw/2.5,
                 gaugeWidth: 40,
                 showNeedle: true,
-                height: 200,
+            
                 label: {
                     display: true,
                     left: 'Min',
@@ -413,7 +417,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
             $('#container1').highcharts({
                 chart: {
-                    type: 'column'
+                    type: 'column',
+                    height: height/3,
                 },
                 title: {
                     text: ''
@@ -436,9 +441,9 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                         format: $scope.graphdateformat,
                         rotation: -90,
                         style: {
-                            fontSize: '11px',
+                            fontSize: '10px',
                             fontFamily: 'Verdana, sans-serif',
-                            width: '100px'
+                          
                         }
                     }
                 },
