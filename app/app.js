@@ -62,7 +62,7 @@ app.config(function ($routeProvider) {
     });
 
     // Default Page load 
-    $routeProvider.otherwise({ redirectTo: "/home" });
+    $routeProvider.otherwise({ redirectTo: "/login" });
 
 });
 
