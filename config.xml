@@ -6,10 +6,10 @@
         id        = "com.phonegap.hello-world"
         version   = "1.0.0">
 
-    <name>Social communication site</name>
+    <name>Volta APP</name>
 
     <description>
-        Social communication site is application that use to create your own social with friends.
+     Volta APP for SHIVAM ITCS.
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">
