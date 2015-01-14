@@ -233,9 +233,6 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     var height = $(window).height();
 
-    alert(height);
-
-   
 
     $scope.updateFormateforGraphforLang = function () {
         switch (userLang) {
@@ -285,6 +282,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 radius: iw/2.5,
                 gaugeWidth: 40,
                 showNeedle: true,
+                paddingY: 0,
+                paddingX : 0,
             
                 label: {
                     display: true,
@@ -450,7 +449,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'KWH'
+                        text: ''
                     }
                 },
 
