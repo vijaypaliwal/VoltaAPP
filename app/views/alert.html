@@ -1,95 +1,99 @@
 ﻿<link href="content/css/graph.css" rel="stylesheet" />
-<script src="scripts/jquery.simpleWeather.js"></script>
-<script src="scripts/Weathersetting.js"></script>
-<br />
-<div class="row">
+<!--<script src="scripts/jquery.simpleWeather.js"></script>-->
+<!--<script src="scripts/Weathersetting.js"></script>-->
+<!--<br />-->
+<!--<div class="row">
         <div class="col-md-9">
             <br />
             <div id="CurrentDate"></div>
           <!--     <a class="btn btn-xs btn-success" data-ng-click="myculture('RS')">RS</a>
-                <a class="btn btn-xs btn-success" data-ng-click="myculture('US')">US</a>-->
+                <a class="btn btn-xs btn-success" data-ng-click="myculture('US')">US</a> 
         </div>
         <div class="col-md-3">
             <div>
                   <div style="margin-bottom:0px;" id="weather2"></div>
 	            <!-- <p>&nbsp;</p>
 	             <div id="weather"></div>
-                -->
+                
             </div>
         </div>
-    </div>
-
+    </div>-->
+<div class="row">
+     <div id="CurrentDate"></div>
+</div>
   <h3>Alert Configuration</h3>
   <hr />
 
 <div class="row">
-    <div class="col-md-4">
-        <p>High Usage - Hour</p>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h5>High Usage - Hour</h5>
     </div>
-     <div class="col-md-4">
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
          <input id="hr" ng-model="alert.highusagehr" type="checkbox" />
      </div>
 
 </div>
-
+<br />
 <div class="row">
-    <div class="col-md-4">
-        <p>High Usage - Day</p>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h5>High Usage - Day</h5>
     </div>
-     <div class="col-md-4">
+     <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
          <input id="day" ng-model="alert.highusageday"  type="checkbox" />
      </div>
 
 </div>
 
-
+<br />
 
 <h3>Appliance Left on</h3>
+<hr />
 <div class="row">
-    <div class="col-md-4">
-        <p>Large consumes (e.g. Oven, Heater)</p>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h5>Large consumes (e.g. Oven, Heater)</h5>
     </div>
-     <div class="col-md-4">
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+         <input type="checkbox" value="" />
+     </div>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h5>Computers, TV, games, Consoles, etc</h5>
+    </div>
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+         <input type="checkbox" value="" />
+     </div>
+
+</div>
+<br />
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h5>Lights</h5>
+    </div>
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
          <input type="checkbox" value="" />
      </div>
 
 </div>
 
+<br />
+<hr />
 <div class="row">
-    <div class="col-md-4">
-        <p>Computers, TV, games, Consoles, etc</p>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h5>Email Destination</h5>
     </div>
-     <div class="col-md-4">
-         <input type="checkbox" value="" />
-     </div>
-
-</div>
-
-
-<div class="row">
-    <div class="col-md-4">
-        <p>Lights</p>
-    </div>
-     <div class="col-md-4">
-         <input type="checkbox" value="" />
-     </div>
-
-</div>
-
-
-<div class="row">
-    <div class="col-md-4">
-        <p>Email Destination</p>
-    </div>
-     <div class="col-md-4">
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
          <input ng-disabled="true" type="text" value="{{email}}" />
      </div>
 
 </div>
-
+<br />
 <hr />
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <a class="btn btn-success" data-ng-click="savealert()"><i class="fa fa-check"></i> Save Alert</a>
           <a href="#/graph" class="btn btn-danger" ><i class="fa fa-times"></i> cancel</a>
     </div>

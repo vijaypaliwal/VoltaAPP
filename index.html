@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html data-ng-app="AngularAuthApp">
 <head>
+
     <meta name="keywords" content="angularjs,SPA,Single Page Application,refresh tokens,authentication,bearer token authentication,OWIN,bootstrap,bootstrap ui,tutorial,JS framework,ASP.NET WEB API 2,Taiseer Joudeh" />
     <meta name="description" content="SPA built using angularjs,authentication is done using bearer token,back end built using Asp.net web api 2 and OWIN Framework,creatd by Taiseer Joudeh" />
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
@@ -12,22 +13,23 @@
     <link href="content/css/font-awesome.min.css" rel="stylesheet" />
     <link href="content/css/social-buttons.css" rel="stylesheet" />
     <link href="content/css/idangerous.swiper.css" rel="stylesheet" />
+     <link href="content/css/bootstrap-switch.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
+
     <style>
-        body
-        {
+        body {
             line-height: initial !important;
         }
-        .text-primary
-        {
+
+        .text-primary {
             font-size: 15px;
             white-space: normal;
             color: #fff;
             text-align: left;
             min-height: 90px;
         }
-        .hookdiv
-        {
+
+        .hookdiv {
             font-size: 50px;
             width: 100%;
             text-align: center;
@@ -35,100 +37,116 @@
             height: 50px;
             color: #ccc;
         }
-        a
-        {
+
+        a {
             cursor: pointer;
         }
-        .highcharts-button
-        {
+
+        .highcharts-button {
             display: none;
         }
-        .highcharts-legend-item
-        {
+
+        .highcharts-legend-item {
             display: none;
         }
-        .weather li
-        {
+
+        .weather li {
             font-size: 14px;
         }
-        #weather2 img
-        {
+
+        #weather2 img {
             height: 75px;
         }
-        .btn
-        {
+
+        .btn {
             padding: 13px 15px;
         }
-        .form-horizontal .control-label
-        {
+
+        .form-horizontal .control-label {
             text-align: left;
             font-size: 15px;
         }
-        p
-        {
+
+        p {
             margin: 0px;
+            font-size: 13px;
         }
-        hr
-        {
+
+        hr {
             margin-top: 14px;
             margin-bottom: 14px;
         }
-        .progress
-        {
+
+        .progress {
             margin-bottom: 2px;
+            padding: 0px;
+            margin-top: 3px;
+        }
+
+        .well {
+            min-height: 20px;
+            padding: 10px;
+            margin-bottom: 0px;
+            background-color: #fafafa;
+            border: 1px solid #e8e8e8;
+            border-radius: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+            border: transparent;
         }
     </style>
+
     <style>
         /* Demo Syles */
-        .device
-        {
+
+        .device {
             width: 100%;
             position: relative;
         }
-        .device .arrow-left
-        {
-            background: url(img/arrows.png) no-repeat left top;
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            margin-top: -15px;
-            width: 17px;
-            height: 30px;
-        }
-        .device .arrow-right
-        {
-            background: url(img/arrows.png) no-repeat left bottom;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            margin-top: -15px;
-            width: 17px;
-            height: 30px;
-        }
-        .swiper-container
-        {
+
+            .device .arrow-left {
+                background: url(img/arrows.png) no-repeat left top;
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                margin-top: -15px;
+                width: 17px;
+                height: 30px;
+            }
+
+            .device .arrow-right {
+                background: url(img/arrows.png) no-repeat left bottom;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                margin-top: -15px;
+                width: 17px;
+                height: 30px;
+            }
+
+        .swiper-container {
             width: 100%;
         }
-        .content-slide
-        {
+
+        .content-slide {
             padding: 20px;
             color: #000;
         }
-        .title
-        {
+
+        .title {
             font-size: 25px;
             margin-bottom: 10px;
         }
-        .pagination
-        {
+
+        .pagination {
             position: absolute;
             left: 0;
             text-align: center;
             bottom: 5px;
             width: 100%;
         }
-        .swiper-pagination-switch
-        {
+
+        .swiper-pagination-switch {
             display: inline-block;
             width: 10px;
             height: 10px;
@@ -138,25 +156,25 @@
             margin: 0 3px;
             cursor: pointer;
         }
-        .swiper-active-switch
-        {
+
+        .swiper-active-switch {
             background: #fff;
         }
-        .swiper-slide
-        {
+
+        .swiper-slide {
             height: auto !important;
         }
-        .swiper-wrapper
-        {
+
+        .swiper-wrapper {
             height: auto !important;
         }
-        .navbar-nav > li > a
-        {
+
+        .navbar-nav > li > a {
             padding-top: 6px;
             padding-bottom: 6px;
         }
-        .navbar-brand
-        {
+
+        .navbar-brand {
             float: left;
             padding: 5px 14px;
             font-size: 19px;
@@ -164,13 +182,13 @@
             height: auto;
             color: #000 !important;
         }
-        .navbar
-        {
+
+        .navbar {
             min-height: 0px;
             color: #000;
         }
-        .navbar-toggle
-        {
+
+        .navbar-toggle {
             position: relative;
             float: right;
             margin-right: 15px;
@@ -183,69 +201,91 @@
             border-radius: 0;
             color: #000;
         }
-        .navbar-default
-        {
+
+        .navbar-default {
             background-color: #D2D2D2;
             border-color: #D2D2D2;
         }
-        .navbar-default .navbar-nav > li > a
-        {
-            color: #000;
-        }
-        .navbar-default .navbar-collapse, .navbar-default .navbar-form
-        {
-            border-color: #A6A3A3;
-        }
+
+            .navbar-default .navbar-nav > li > a {
+                color: #000;
+            }
+
+            .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+                border-color: #A6A3A3;
+            }
     </style>
 </head>
 <body data-ng-controller="indexController">
+
     <nav style="color: #fff;" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button data-ng-show="authentication.isAuth" type="button" class="navbar-toggle  collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                       <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} {{authentication.name}} <i class="fa fa-th-list"></i></span>
+                    <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} {{authentication.name}} <i class="fa fa-th-list"></i></span>
                 </button>
-                <a class="navbar-brand">
-                 Volt@</a>
+                <a class="navbar-brand">Volt@</a>
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul data-ng-show="authentication.isAuth" class="nav navbar-nav">
-                    <li ><a href="#/graph"><i class="fa fa-home"></i> {{ 'home' | translate }}</a></li>
-                <!--    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
+                    <li><a href="#/graph"><i class="fa fa-home"></i>{{ 'home' | translate }}</a></li>
+                    <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i> {{ 'alerts' | translate }}</a></li>
+                    <!--    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
                     <li><a href="#/alert">{{ 'alerts' | translate }}</a></li>
                     <li><a href="#/comparison">Comparison View</a></li>
 
                          <li><a><i class="fa fa-cog"></i>&nbsp; {{ 'Setting' | translate }}</a></li>
                               <li><a href="#/browserdetail"><i class="fa fa-globe"></i>&nbsp; {{ 'browserdetails' | translate }}</a></li>-->
-                            <li><a data-ng-click="logOut()"><i class="fa fa-sign-out"></i>&nbsp;{{ 'Signout' | translate }}</a></li>
+                    <li><a data-ng-click="logOut()"><i class="fa fa-sign-out"></i>&nbsp;{{ 'Signout' | translate }}</a></li>
 
                 </ul>
-                
+
             </div>
             <!--/.nav-collapse -->
         </div>
     </nav>
+
+
     <div class="container">
+
         <div data-ng-view="">
         </div>
+
+
     </div>
+
+
+
+
+
     <!--<div class='input-group date' id='datetimepicker1'>
                     <input type='text' class="form-control" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>-->
 
+
+
+
+
+
+
     <script src="scripts/cordova.js"></script>
-
     <!-- 3rd party libraries -->
-
     <script src="scripts/jquery-1.11.0.min.js"></script>
 
-    <script src="scripts/bootstrap.min.js"></script>
 
+
+
+    <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/bootbox.js"></script>
+
+
+
+
+
 
     <script src="scripts/toastr.js"></script>
 
@@ -266,22 +306,22 @@
         };
     </script>
 
-    <script src="scripts/highcharts.js"></script>
 
+
+
+
+
+
+    <script src="scripts/highcharts.js"></script>
     <script src="scripts/exporting.js"></script>
 
     <script type="text/javascript" src="scripts/raphael-min.js"></script>
-
     <script type="text/javascript" src="scripts/kuma-gauge.jquery.js"></script>
 
     <script src="scripts/angular.min.js"></script>
-
     <script src="scripts/angular-route.min.js"></script>
-
     <script src="scripts/angular-local-storage.min.js"></script>
-
     <script src="scripts/loading-bar.min.js"></script>
-
     <script src="scripts/angular-translate.js"></script>
 
     <script src="scripts/angular-translate-loader-static-files.js"></script>
@@ -290,26 +330,19 @@
 
     <script type="text/javascript" language="javascript" src="scripts/jquery.cookie.js"></script>
 
+
     <script src="scripts/date.js"></script>
-
     <script src="scripts/moment.min.js"></script>
-
     <script src="scripts/ui-bootstrap-0.8.0.js"></script>
-
     <script src="scripts/ui-bootstrap-tpls-0.8.0.js"></script>
-
+     <script src="scripts/bootstrap-switch.js"></script>
     <script data-require="angular-resource@1.2.14" data-semver="1.2.14" src="http://code.angularjs.org/1.2.14/angular-resource.js"></script>
-
     <!-- Load app main script -->
-
     <script src="app/app.js?v=2"></script>
-
     <script src="scripts/multilangual.js"></script>
 
     <!-- Load services -->
-
     <script src="app/services/authInterceptorService.js?v=2"></script>
-
     <script src="app/services/authService.js?v=2"></script>
 
     <script src="app/services/tokensManagerService.js?v=2"></script>
@@ -317,55 +350,43 @@
     <!-- Load controllers -->
 
     <script src="app/controllers/indexController.js?v=2"></script>
-
     <script src="app/controllers/angularTranslationService.js"></script>
-
     <script src="app/controllers/loginController.js?v=2"></script>
-
     <script src="app/controllers/signupController.js?v=2"></script>
-
     <script src="app/controllers/graphcontroller.js"></script>
-
     <script src="app/controllers/forgotcontroller.js"></script>
-
     <script src="app/controllers/changepasswordcontroller.js"></script>
-
     <script src="app/controllers/browserdetailcontroller.js"></script>
-
     <script src="app/controllers/householdlcontroller.js"></script>
-
     <script src="app/controllers/alertcontroller.js"></script>
-
     <script src="app/controllers/comparisioncontroller.js"></script>
+
 
     <script>
 
-        $(".navbar-nav li a").click(function() {
+        $(".navbar-nav li a").click(function () {
             $("#navbar").css("height", "1px");
         });
     </script>
 
     <script>
+        document.addEventListener("deviceready", onDeviceReady, false);
 
-        document.addEventListener('deviceready', function() {
-            var exitApp = false, intval = setInterval(function() { exitApp = false; }, 1000);
-            document.addEventListener("backbutton", function(e) {
-                e.preventDefault();
-                if (exitApp) {
-                    clearInterval(intval)
-                    navigator.notification.confirm("Are you sure you want to exit ?", onConfirm, "Confirmation", "Yes,No");
-                }
-                else {
-                    exitApp = true
-                    history.back(1);
-                }
-            }, false);
-        }, false);
+        function onDeviceReady() {
+            document.addEventListener("backbutton", onBackKeyDown, false); //Listen to the User clicking on the back button
+        }
+
+        function onBackKeyDown(e) {
+            e.preventDefault();
+            navigator.notification.confirm("Are you sure you want to exit ?", onConfirm, "Confirmation", "Yes,No");
+            // Prompt the user with the choice
+        }
+
         function onConfirm(button) {
             if (button == 2) {//If User selected No, then we just do nothing
                 return;
             } else {
-                navigator.app.exitApp(); // Otherwise we quit the app.
+                navigator.app.exitApp();// Otherwise we quit the app.
             }
         }
     </script>

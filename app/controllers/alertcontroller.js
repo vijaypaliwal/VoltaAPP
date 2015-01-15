@@ -27,7 +27,7 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
         $("#CurrentDate").html("<b>" + moment(new Date()).format("MMM DD YYYY,h:mm:ss a") + "</b>");
     }
 
-    debugger;
+     
 
         $.ajax({
             url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/alert',
@@ -107,7 +107,7 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
 
 
         setTimeout(function () {
-       
+            $("input[type='checkbox']").bootstrapSwitch();
 
             $('#hr').attr('checked', $scope.alert.highusagehr); // Checks it
             $('#day').attr('checked', $scope.alert.highusageday);
