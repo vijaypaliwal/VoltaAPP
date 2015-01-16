@@ -12,7 +12,10 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
 
     $scope.alert = {
         highusagehr: false,
-        highusageday: false
+        highusageday: false,
+        largeconsumes: false,
+        computers: false,
+        light:false,
      
     };
 
@@ -41,14 +44,15 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
             contentType: "application/json; charset=utf-8",
             success: function (response, status) {
 
+                debugger;
+
                 var data = response.length == 0 ? null : response[response.length - 1];
 
                 if (data != null) {
                     $scope.alert.highusagehr = data.hourAlert;
                     $scope.alert.highusageday = data.dayAlert;
 
-                    $('#hr').attr('checked', $scope.alert.highusagehr); // Checks it
-                    $('#day').attr('checked', $scope.alert.highusageday);
+                    $scope.$apply();
                 }
 
         
@@ -71,7 +75,7 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
 
         $scope.savealert = function () {
 
-
+     
        
 
         $.ajax({
@@ -85,6 +89,9 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (response, status) {
+
+
+                debugger;
 
                 log.info("Alert Added Successfully");
                 debugger;
@@ -104,18 +111,27 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
         }
 
 
-
-
-        setTimeout(function () {
-            $("input[type='checkbox']").bootstrapSwitch();
-
-            $('#hr').attr('checked', $scope.alert.highusagehr); // Checks it
-            $('#day').attr('checked', $scope.alert.highusageday);
-        }, 1500);
+    
 
 
 
 
+        //setTimeout(function () {
+
+
+          
+
+
+        //  //  $("input[type='checkbox']").bootstrapSwitch();
+
+        //    $('#hr').attr('checked', $scope.alert.highusagehr); // Checks it
+        //    $('#day').attr('checked', $scope.alert.highusageday);
+        //}, 1500);
+
+
+
+        
 
 
 }]);
+

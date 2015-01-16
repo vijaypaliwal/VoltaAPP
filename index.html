@@ -19,6 +19,7 @@
     <style>
         body {
             line-height: initial !important;
+            margin-bottom:0px;
         }
 
         .text-primary {
@@ -60,6 +61,7 @@
 
         .btn {
             padding: 13px 15px;
+            font-size:14px;
         }
 
         .form-horizontal .control-label {
@@ -161,9 +163,7 @@
             background: #fff;
         }
 
-        .swiper-slide {
-            height: auto !important;
-        }
+    
 
         .swiper-wrapper {
             height: auto !important;
@@ -214,6 +214,7 @@
             .navbar-default .navbar-collapse, .navbar-default .navbar-form {
                 border-color: #A6A3A3;
             }
+        
     </style>
 </head>
 <body data-ng-controller="indexController">
@@ -230,7 +231,7 @@
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul data-ng-show="authentication.isAuth" class="nav navbar-nav">
-                    <li><a href="#/graph"><i class="fa fa-home"></i>{{ 'home' | translate }}</a></li>
+                    <li><a href="#/graph"><i class="fa fa-home"></i> {{ 'home' | translate }}</a></li>
                     <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i> {{ 'alerts' | translate }}</a></li>
                     <!--    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
                     <li><a href="#/alert">{{ 'alerts' | translate }}</a></li>
@@ -317,7 +318,7 @@
 
     <script type="text/javascript" src="scripts/raphael-min.js"></script>
     <script type="text/javascript" src="scripts/kuma-gauge.jquery.js"></script>
-
+      <script src="scripts/bootstrap-switch.js"></script>
     <script src="scripts/angular.min.js"></script>
     <script src="scripts/angular-route.min.js"></script>
     <script src="scripts/angular-local-storage.min.js"></script>
@@ -335,11 +336,13 @@
     <script src="scripts/moment.min.js"></script>
     <script src="scripts/ui-bootstrap-0.8.0.js"></script>
     <script src="scripts/ui-bootstrap-tpls-0.8.0.js"></script>
-     <script src="scripts/bootstrap-switch.js"></script>
+   
     <script data-require="angular-resource@1.2.14" data-semver="1.2.14" src="http://code.angularjs.org/1.2.14/angular-resource.js"></script>
     <!-- Load app main script -->
+     <script src="scripts/SwitchModule.js"></script>
     <script src="app/app.js?v=2"></script>
     <script src="scripts/multilangual.js"></script>
+   
 
     <!-- Load services -->
     <script src="app/services/authInterceptorService.js?v=2"></script>

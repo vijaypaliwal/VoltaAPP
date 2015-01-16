@@ -59,7 +59,7 @@
          <p style="margin-bottom:10px;"><span class="label label-default">Tariff</span></p>
         
             <p>Npower 123</p>
-               <p>Cycle 123</p>
+               <p>Cycle Peak</p>
    
     </div>
 
@@ -95,28 +95,70 @@
       <div  class="swiper-wrapper">
         <div class="swiper-slide">
 
-         <div class="row">
-        <div class="col-md-12">
+         <div class="row graphmenusection">
+        <div class="col-md-12 col-xs-12">
   <div style="width:100%; background:#388f58;" class="btn-group" id="allbuttons">
-  <button id="24hrs" data-ng-click="GetMyData(1)" class="btn btn-info"><span class="hidden-xs">{{ 'Last24hrs' | translate }}</span><span class="visible-xs">24hrs</span></button>
-  <button id="7days" data-ng-click="GetMyData(2)" class="btn btn-success"><span class="hidden-xs">{{ 'Last7days' | translate }}</span><span class="visible-xs">7days</span></button>
+  <button id="24hrs" data-ng-click="GetMyData(1)" class="btn btn-info"><span class="hidden-xs">{{ 'Last24hrs' | translate }}</span><span class="visible-xs">24 hrs</span></button>
+  <button id="7days" data-ng-click="GetMyData(2)" class="btn btn-success"><span class="hidden-xs">{{ 'Last7days' | translate }}</span><span class="visible-xs">7 days</span></button>
   <button id="months" data-ng-click="GetMyData(3)" class="btn btn-success"><span class="hidden-xs">{{ 'Lastmonth' | translate }}</span><span class="visible-xs">month</span></button>
   <button id="6months" data-ng-click="GetMyData(4)" class="btn btn-success"><span class="hidden-xs">{{ 'Last6month' | translate }}</span><span class="visible-xs">6 month</span></button>
   <button id="year" data-ng-click="GetMyData(5)" class="btn btn-success"><span class="hidden-xs">{{ 'Lastyear' | translate }}</span><span class="visible-xs">Year</span></button>
+  <a  class="btn btn-info btn-xs pull-right" data-ng-click="showpicker()"><i class="fa fa-calendar"></i></a>
 </div>
         </div>
-        
+             
     </div>
 
+         <div style="display:none;" class="row datepickersection">
 
+          
+                 <div class="col-md-11 col-xs-11">
+                     <div style="width:100%;" class="mydate">
+                <div class="col-md-3 col-xs-3">
+                    <a style="padding: 3px 10px 3px 10px;" class="btn btn-info btn-xs" data-ng-click="getonedayback()">
+
+                          <i  class="fa fa-chevron-left"></i>
+                    </a>
+
+
+                </div>
+                  <div style="text-align:center;" class="col-md-6 col-xs-6">{{datetoshow}}</div>
+                  <div style="text-align:right" class="col-md-3 col-xs-3">
+                      <a  style="padding: 3px 10px 3px 10px;" id="rightarrow" style="display:none;" data-ng-click="getonedayafter()" class="btn btn-info btn-xs">
+                      <i  class="fa fa-chevron-right"></i>
+                      </a>
+                    
+
+                  </div>
+            </div>
+                 </div>
+             
+             <div style="text-align:right" class="col-md-1 col-xs-1">
+                 <a class="btn btn-info btn-xs pull-right" data-ng-click="showgraphmenu()"><i class="fa fa-th-list"></i></a>
+             </div>
+            
+     
+            </div>
+
+            
 
 
  <!--dispaly all Bottom Graphs-->
-<div id="container1" style=""></div>
+<div id="container1"></div>
 
         </div>
         <div class="swiper-slide">
+
+            <div class="row">
+                <div class="col-md-12">
+                      <a class="btn btn-success">How do you Compare</a>   
+                </div>
+            </div>
+
+             
+              
             <div class="well">
+                 
             <div class="row">
               
     <div class="col-md-3 col-xs-4">
@@ -191,6 +233,7 @@
         </div>
 
           <div class="swiper-slide">
+          
             <div class="well">
                 <div class="row">
                     <div class="col-md-12">
