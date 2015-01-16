@@ -606,7 +606,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.graphname = "24hrs";
         $scope.isDateRangeSelected = isDaterange;
         $scope.bottomgraphurl = $scope.last24hours;
-        $scope.graphdateformat = '{value:%I %p}'
+        $scope.graphdateformat = '{value:%H}'
         $scope.get24hrsgraph();
 
         console.log("24 hrs URL::" + $scope.bottomgraphurl);
