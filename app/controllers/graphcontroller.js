@@ -398,7 +398,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
     $(window).on("orientationchange", function () {
-        alert("orientation Changed");
+        $scope.getsecondgraph();
         $scope.GetMyData(1);
         $scope.getsecondgraph();
     });
@@ -500,6 +500,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     reversed: true,
                     type: 'datetime',
                     title: 'Last 24 Hours Detail',
+                //    tickInterval: $scope.graphstep,
                     labels: {
                         format: $scope.graphdateformat,
                       
@@ -507,8 +508,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                             fontSize: '8px',
                             
                         },
-
                         step: $scope.graphstep
+                   
                     }
                 },
                 yAxis: {
@@ -520,6 +521,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                         style: {
                             fontSize: '8px',
                         },
+
+                      
                       
                     }
                 },

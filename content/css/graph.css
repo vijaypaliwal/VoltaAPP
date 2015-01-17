@@ -21,9 +21,11 @@
 
         border: 1px solid #ccc;
 display: inline-block;
-padding: 4px;
+
 background: #388f58;
 color: #fff;
+
+line-height:25px;
     }
 
     .graphmenusection .btn
