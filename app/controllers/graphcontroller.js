@@ -161,6 +161,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.islast24dayactive = true;
     $scope.ActiveButton = 1;
 
+    $scope.graphstep = 1;
+
 
 
     $scope.datetoshow = moment(todaydate).format($scope.culturedateformat);
@@ -394,6 +396,13 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     };
 
+
+    $(window).on("orientationchange", function () {
+        alert("orientation Changed");
+        $scope.GetMyData(1);
+        $scope.getsecondgraph();
+    });
+
     $scope.get24hrsgraph = function () {
 
 
@@ -417,29 +426,58 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             var yData = [];
 
 
-            if ($scope.graphname == "24hrs" || $scope.graphname == "30days") {
 
-                for (var i = 0; i < data.listPower.length; i++) {
-                    if ((parseInt(i )% 3) == 0) {
-                        xData.push(parseFloat(data.listPower[i].power));
-                        yData.push(new Date(data.listPower[i].timestamp));
-                    }
-
-                }
-
+            for (var i = 0; i < data.listPower.length; i++) {
+                xData.push(parseFloat(data.listPower[i].power));
+                yData.push(new Date(data.listPower[i].timestamp));
             }
 
 
-            else {
+            //if ($scope.graphname == "24hrs" || $scope.graphname == "30days") {
+
+            //    for (var i = 0; i < data.listPower.length; i++) {
+            //        if ((parseInt(i )% 3) == 0) {
+            //            xData.push(parseFloat(data.listPower[i].power));
+            //            yData.push(new Date(data.listPower[i].timestamp));
+            //        }
+
+            //    }
+
+            //}
+
+
+            //else {
 
 
 
-                for (var i = 0; i < data.listPower.length; i++) {
-                    xData.push(parseFloat(data.listPower[i].power));
-                    yData.push(new Date(data.listPower[i].timestamp));
-                }
+            //    for (var i = 0; i < data.listPower.length; i++) {
+            //        xData.push(parseFloat(data.listPower[i].power));
+            //        yData.push(new Date(data.listPower[i].timestamp));
+            //    }
+            //}
+
+
+         
+
+
+            switch ($scope.graphname) {
+
+                
+                case "24hrs":
+
+                    $scope.graphstep = 3; break;
+                case "7days":
+                    $scope.graphstep = 3; break;
+                case "30days":
+                    $scope.graphstep = 12; break;
+                case "6month":
+                    $scope.graphstep = 2; break;
+                case "1year":
+                    $scope.graphstep = 4; break;
             }
-            debugger;
+
+
+      
 
 
             $('#container1').highcharts({
@@ -463,24 +501,26 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     type: 'datetime',
                     title: 'Last 24 Hours Detail',
                     labels: {
-                        // format: '{value:%I:%M %p}', last 24 hours
-                        //  format: '{value:%a-%m-%Y}', week
-                        //  format: '{value:%a-%m-%Y}', month
-                        //  format: '{value:%B \'%y}', 6 month
-
                         format: $scope.graphdateformat,
-                        rotation: -90,
+                      
                         style: {
-                            fontSize: '10px',
-                            fontFamily: 'Verdana, sans-serif',
+                            fontSize: '8px',
+                            
+                        },
 
-                        }
+                        step: $scope.graphstep
                     }
                 },
                 yAxis: {
                     min: 0,
                     title: {
-                        text: ''
+                        text: 'kWh'
+                    },
+                    labels: {
+                        style: {
+                            fontSize: '8px',
+                        },
+                      
                     }
                 },
 
@@ -583,7 +623,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.isDateRangeSelected = isDaterange;
         $scope.islast7dayactive = true;
         console.log("7 days URL::" + $scope.bottomgraphurl);
-        $scope.graphdateformat = '{value:%b-%d-%y}'
+        $scope.graphdateformat = '{value:%d/%m/%y}'
         $scope.get24hrsgraph();
         $scope.bottomgraphurl = "";
 
@@ -596,7 +636,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.isDateRangeSelected = isDaterange;
         $scope.bottomgraphurl = $scope.lastmonth;
         console.log("1 month URL::" + $scope.bottomgraphurl);
-        $scope.graphdateformat = '{value:%d-%b-%y}'
+        $scope.graphdateformat = '{value:%d/%m/%y}'
         $scope.get24hrsgraph();
         $scope.bottomgraphurl = "";
 
@@ -620,7 +660,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.graphname = "6month";
         $scope.isDateRangeSelected = isDaterange;
         $scope.bottomgraphurl = $scope.last6month;
-        $scope.graphdateformat = '{value:%b \'%y}'
+        $scope.graphdateformat = '{value:%m /\%y}'
         console.log("6 months URL::" + $scope.bottomgraphurl);
         $scope.get24hrsgraph();
         $scope.bottomgraphurl = "";
@@ -632,7 +672,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.isDateRangeSelected = isDaterange;
         $scope.bottomgraphurl = $scope.lastyear;
         console.log("1 Year URL::" + $scope.bottomgraphurl);
-        $scope.graphdateformat = '{value:%b \%y}'
+        $scope.graphdateformat = '{value:%m /\%y}'
         $scope.get24hrsgraph();
         $scope.bottomgraphurl = "";
 
@@ -856,6 +896,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.getexpectedgcounter();
     $scope.getdailyavgcounter();
     $scope.GetMyData(1);
+
 
     //setInterval(function () { $scope.gettodaycounter(); }, 10000);
 

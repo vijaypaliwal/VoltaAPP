@@ -26,8 +26,12 @@ background: #388f58;
 color: #fff;
     }
 
-      .btn{
-      padding: 6px 5px;
-  }
+    .graphmenusection .btn
+    {
+        font-size:9px;
+        padding-left:5px;
+        padding-right:5px;
+    }
+
 
 

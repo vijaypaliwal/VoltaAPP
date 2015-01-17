@@ -64,7 +64,14 @@
     </div>
 
     <div class="col-md-9 col-xs-8">
-     
+        <div class="col-md-6 col-xs-6"></div>
+          <div class="col-md-6 col-xs-6">
+              <div style="text-align:center; font-size:10px; position:absolute; color:#9599F8; margin-top:-10px; ">
+            <i class="fa fa-arrows-v"></i> now
+        </div>
+          </div>
+
+        
    <div class="progress">
   <div class="progress-bar progress-bar-success" style="width: 25%; background:#9599F8">
     <span class="sr-only">35% Complete (success)</span>
@@ -124,12 +131,12 @@
          <div class="row graphmenusection">
         <div class="col-md-12 col-xs-12">
   <div style="width:100%; background:#388f58;" class="btn-group" id="allbuttons">
-  <button id="24hrs" data-ng-click="GetMyData(1)" class="btn btn-info"><span class="hidden-xs">{{ 'Last24hrs' | translate }}</span><span class="visible-xs">24 hrs</span></button>
-  <button id="7days" data-ng-click="GetMyData(2)" class="btn btn-success"><span class="hidden-xs">{{ 'Last7days' | translate }}</span><span class="visible-xs">7 days</span></button>
-  <button id="months" data-ng-click="GetMyData(3)" class="btn btn-success"><span class="hidden-xs">{{ 'Lastmonth' | translate }}</span><span class="visible-xs">month</span></button>
-  <button id="6months" data-ng-click="GetMyData(4)" class="btn btn-success"><span class="hidden-xs">{{ 'Last6month' | translate }}</span><span class="visible-xs">6 month</span></button>
-  <button id="year" data-ng-click="GetMyData(5)" class="btn btn-success"><span class="hidden-xs">{{ 'Lastyear' | translate }}</span><span class="visible-xs">Year</span></button>
-  <a  class="btn btn-info btn-xs pull-right" data-ng-click="showpicker()"><i class="fa fa-calendar"></i></a>
+  <button id="24hrs" data-ng-click="GetMyData(1)" class="btn btn-info"><span>Last 24hrs</span></button>
+  <button id="7days" data-ng-click="GetMyData(2)" class="btn btn-success"><span>Last 7days</span></button>
+  <button id="months" data-ng-click="GetMyData(3)" class="btn btn-success"><span>Last month</span></button>
+  <button id="6months" data-ng-click="GetMyData(4)" class="btn btn-success"><span>Last 6month</span></button>
+  <button id="year" data-ng-click="GetMyData(5)" class="btn btn-success"><span>Last Year</span></button>
+  <a  class="btn btn-info btn-xs pull-right" data-ng-click="showpicker()">&nbsp;&nbsp;<i class="fa fa-calendar"></i>&nbsp;&nbsp;</a>
 </div>
         </div>
              
@@ -150,7 +157,7 @@
                 </div>
                   <div style="text-align:center;" class="col-md-6 col-xs-6">{{datetoshow}}</div>
                   <div style="text-align:right" class="col-md-3 col-xs-3">
-                      <a  style="padding: 3px 10px 3px 10px;" id="rightarrow" style="display:none;" data-ng-click="getonedayafter()" class="btn btn-info btn-xs">
+                      <a  id="rightarrow" style="display:none; padding: 3px 10px 3px 10px;" data-ng-click="getonedayafter()" class="btn btn-info btn-xs">
                       <i  class="fa fa-chevron-right"></i>
                       </a>
                     
@@ -160,7 +167,7 @@
                  </div>
              
              <div style="text-align:right" class="col-md-1 col-xs-1">
-                 <a class="btn btn-info btn-xs pull-right" data-ng-click="showgraphmenu()"><i class="fa fa-th-list"></i></a>
+                 <a style="padding:8px;" class="btn btn-info btn-xs pull-right" data-ng-click="showgraphmenu()"><i class="fa fa-th-list"></i></a>
              </div>
             
      
