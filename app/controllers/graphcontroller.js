@@ -55,7 +55,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.lastmonth = 'http://54.154.64.51:8080/voltaware/v1.0/' + 'user/' + $scope.uid + '/sensor/' + $scope.sid + '/powerinfo/lastMonth'
     $scope.last6month = 'http://54.154.64.51:8080/voltaware/v1.0/' + 'user/' + $scope.uid + '/sensor/' + $scope.sid + '/powerinfo/last6Months'
     $scope.lastyear = 'http://54.154.64.51:8080/voltaware/v1.0/' + 'user/' + $scope.uid + '/sensor/' + $scope.sid + '/powerinfo/lastYears'
-
+    $scope.isFirstTime = false;
 
 
     $scope.message = 'Home';
@@ -72,14 +72,14 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.myculture = function (culture) {
 
         if (culture == "ru" || culture == "ru-ru") {
-            $scope.culturedateformat = "DD-MM-YYYY";
+            $scope.culturedateformat = "DD MMM YYYY";
 
             $("#CurrentDate").html("<b>" + moment(new Date()).format("llll") + "</b>");
 
         }
 
         else {
-            $scope.culturedateformat = "MM-DD-YYYY";
+            $scope.culturedateformat = "DD MMM YYYY";
             $("#CurrentDate").html("<b>" + moment(new Date()).format("llll") + "</b>");
         }
         $scope.datetoshow = moment(new Date()).format($scope.culturedateformat);
@@ -90,9 +90,6 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
 
-
-
-
     if (userLang == "es" || "ru" || "ru-ru") {
 
         $("#CurrentDate").html("<b>" + moment(new Date()).format("DD MMM YYYY,h:mm:ss a") + "</b>");
@@ -100,7 +97,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     }
 
     else {
-        $("#CurrentDate").html("<b>" + moment(new Date()).format("MMM DD YYYY,h:mm:ss a") + "</b>");
+        $("#CurrentDate").html("<b>" + moment(new Date()).format("DD MMM YYYY,h:mm:ss a") + "</b>");
     }
 
 
@@ -163,10 +160,17 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     $scope.graphstep = 1;
 
+    $scope.now = 0;
+    $scope.marginleft = 0;
+
 
 
     $scope.datetoshow = moment(todaydate).format($scope.culturedateformat);
 
+    var preDate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 1);
+    $scope.previousdate = moment(preDate).format($scope.culturedateformat);
+
+   
 
     $scope.onedatafterdate = $scope.onedayapidate;
 
@@ -302,6 +306,110 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             });
 
 
+            var currentusage = (data.power) * 100
+            document.getElementById("currentusage").innerHTML = currentusage.toFixed(2);
+
+
+       
+
+
+            //$(function () {
+
+            //    var gaugeOptions = {
+
+            //        chart: {
+            //            type: 'solidgauge'
+            //        },
+
+            //        title: null,
+
+            //        pane: {
+            //           // center: ['50%', '85%'],
+            //            size: '100%',
+            //            startAngle: -90,
+            //            endAngle: 90,
+            //            background: {
+            //                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+            //                innerRadius: '60%',
+            //                outerRadius: '100%',
+            //                shape: 'arc'
+            //            }
+            //        },
+
+            //        tooltip: {
+            //            enabled: false
+            //        },
+
+            //        // the value axis
+            //        yAxis: {
+            //            stops: [
+            //                [0.1, '#55BF3B'], // green
+            //                [0.5, '#DDDF0D'], // yellow
+            //                [0.9, '#DF5353'] // red
+            //            ],
+            //            lineWidth: 0,
+            //            minorTickInterval: null,
+            //            tickPixelInterval: 400,
+            //            tickWidth: 0,
+            //            title: {
+            //                y: -70
+            //            },
+            //            labels: {
+            //                y: 16
+            //            }
+            //        },
+
+            //        plotOptions: {
+            //            solidgauge: {
+            //                dataLabels: {
+            //                    y: 2,
+            //                    borderWidth: 0,
+            //                    useHTML: true
+            //                }
+            //            }
+            //        }
+            //    };
+
+            //    debugger;
+
+            //    var num = parseFloat(data.power) * 100;
+            //    var n = parseFloat(num.toFixed(2));
+
+            //    // The speed gauge
+            //    $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
+            //        yAxis: {
+            //            min: 0,
+            //            max: 100,
+            //            title: {
+            //                text: 'kWh'
+            //            }
+            //        },
+
+            //        credits: {
+            //            enabled: false
+            //        },
+
+               
+
+            //        series: [{
+            //            name: 'Speed',
+            //            data: [n],
+            //            dataLabels: {
+            //                format: '<div style="text-align:center"><span style="font-size:20px;color:' +
+            //                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+            //                       '<span style="font-size:12px;color:silver">Current Usage</span></div>'
+            //            },
+            //            tooltip: {
+            //                valueSuffix: ''
+            //            }
+            //        }]
+
+            //    }));
+
+
+            //});
+
+
 
 
         }).error(function (xhr, error, errorStatus, responseText) {
@@ -403,16 +511,44 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.getsecondgraph();
     });
 
+    $(function () {
+        $(".highcharts-legend-item").attr("disabled", true);
+    });
+
+
+    var dt = new Date();
+    var currenttime = dt.getHours();
+
+    $scope.now = currenttime
+
+
+   
+
+    $scope.marginleft = $scope.now * 4;
+
+  
+    if ($scope.now >= 20)
+    {
+    $(".leftnow").show()
+    $(".rightnow").hide()
+    }
+    else {
+
+        $(".leftnow").hide()
+        $(".rightnow").show()
+
+    }
+  
+ 
+
     $scope.get24hrsgraph = function () {
-
-
 
 
         if ($scope.isDateRangeSelected) {
             $scope.bottomgraphurl = $scope.bottomgraphurl + "?date=" + $scope.onedayapidate + "+" + "10:20:00";
         }
 
-        // alert($scope.bottomgraphurl);
+       // alert($scope.bottomgraphurl);
 
 
      
@@ -467,23 +603,19 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
                     $scope.graphstep = 3; break;
                 case "7days":
-                    $scope.graphstep = 3; break;
+                    $scope.graphstep = 1; break;
                 case "30days":
-                    $scope.graphstep = 12; break;
+                    $scope.graphstep = 7; break;
                 case "6month":
-                    $scope.graphstep = 2; break;
+                    $scope.graphstep = 1; break;
                 case "1year":
-                    $scope.graphstep = 4; break;
+                    $scope.graphstep = 2; break;
             }
-
-
-      
-
 
             $('#container1').highcharts({
                 chart: {
                     type: 'column',
-                    height: 270,
+                    height: 225,
                     zoomType: 'x',
                 },
                 title: {
@@ -500,26 +632,35 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     reversed: true,
                     type: 'datetime',
                     title: 'Last 24 Hours Detail',
+                    lineWidth: 0,
+                    minorGridLineWidth: 0,
+                    lineColor: 'transparent',
+                 
+                    tickPosition: 'outside',
                 //    tickInterval: $scope.graphstep,
                     labels: {
                         format: $scope.graphdateformat,
                       
                         style: {
-                            fontSize: '8px',
+                            fontSize: '6px',
                             
                         },
                         step: $scope.graphstep
                    
-                    }
+                    },
+                    minorTickLength: 0,
+                    tickLength: 0
+                   
                 },
                 yAxis: {
                     min: 0,
+                
                     title: {
                         text: 'kWh'
                     },
                     labels: {
                         style: {
-                            fontSize: '8px',
+                            fontSize: '6px',
                         },
 
                       
@@ -548,7 +689,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     }
                 },
                 series: [{
-                    name: 'Power Kwh',
+                    name: $scope.previousdate +'-'+ $scope.datetoshow ,
                     data: xData
                 }]
             });
@@ -570,9 +711,9 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     };
 
 
-    $scope.GetMyData = function (CurrentPage) {
-        debugger;
-
+    $scope.FirstTimeClick = function (CurrentPage)
+    {
+        $scope.isFirstTime = true;
         var Current = CurrentPage - 1;
         $("#allbuttons button").each(function (index) {
             $(this).removeClass();
@@ -583,23 +724,56 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             }
         });
         $scope.ActiveButton = CurrentPage;
+        $scope.GetMyData(CurrentPage);
+    }
+
+    $scope.GetMyData = function (CurrentPage) {
+       
+
+        
         $scope.daystoIncrease = 0;
+        
+
         $scope.datetoshow = moment(todaydate).format($scope.culturedateformat);
-
-
         $("#rightarrow").hide();
 
         switch (CurrentPage) {
             case 1:
-
+                if ($scope.isFirstTime) {
+                    $scope.previousdate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 1);
+                    $scope.previousdate = moment($scope.previousdate).format($scope.culturedateformat);
+                    $scope.isFirstTime = false;
+                }  
                 $scope.get24hrs(false); break;
             case 2:
+                if ($scope.isFirstTime) {
+                    $scope.previousdate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 7);
+                    $scope.previousdate = moment($scope.previousdate).format($scope.culturedateformat);
+                    $scope.isFirstTime = false;
+                }  
                 $scope.get7days(false); break;
             case 3:
+                if ($scope.isFirstTime) {
+                    $scope.previousdate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 30);
+                    $scope.previousdate = moment($scope.previousdate).format($scope.culturedateformat);
+                    $scope.isFirstTime = false;
+                }  
                 $scope.getmonth(false); break;
             case 4:
+                if ($scope.isFirstTime) {
+                    $scope.previousdate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 180);
+                    $scope.previousdate = moment($scope.previousdate).format($scope.culturedateformat);
+                    $scope.isFirstTime = false;
+                }  
+                  
+                 
                 $scope.get6month(false); break;
             case 5:
+                if ($scope.isFirstTime) {
+                    $scope.previousdate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 365);
+                    $scope.previousdate = moment($scope.previousdate).format($scope.culturedateformat);
+                    $scope.isFirstTime = false;
+                } 
                 $scope.getyear(false); break;
         }
 
@@ -646,6 +820,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     };
 
     $scope.get24hrs = function (isDaterange) {
+
         $scope.graphname = "24hrs";
         $scope.isDateRangeSelected = isDaterange;
         $scope.bottomgraphurl = $scope.last24hours;
@@ -663,7 +838,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.graphname = "6month";
         $scope.isDateRangeSelected = isDaterange;
         $scope.bottomgraphurl = $scope.last6month;
-        $scope.graphdateformat = '{value:%m /\%y}'
+        $scope.graphdateformat = '{value:%b}'
         console.log("6 months URL::" + $scope.bottomgraphurl);
         $scope.get24hrsgraph();
         $scope.bottomgraphurl = "";
@@ -675,7 +850,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.isDateRangeSelected = isDaterange;
         $scope.bottomgraphurl = $scope.lastyear;
         console.log("1 Year URL::" + $scope.bottomgraphurl);
-        $scope.graphdateformat = '{value:%m /\%y}'
+        $scope.graphdateformat = '{value:%b}'
         $scope.get24hrsgraph();
         $scope.bottomgraphurl = "";
 
@@ -683,18 +858,21 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     $scope.getonedayback = function () {
 
-        //Get selected type
-        //getDay to decrease
         var onedayAgo = new Date();
+        var onedaybefore = new Date();
 
         switch ($scope.ActiveButton) {
             case 1:
                 $scope.daystoIncrease = $scope.daystoIncrease + 1;
                 onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 1))
+                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
                 $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
                 $scope.isDateRangeSelected = true;
 
                 $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
+
+                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
 
                 if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
                     $("#rightarrow").show()
@@ -709,6 +887,13 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             case 2:
                 $scope.daystoIncrease = $scope.daystoIncrease + 7;
                 onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
+
+
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 7))
+                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+
+
+
                 $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
                 $scope.isDateRangeSelected = true;
                 $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
@@ -724,6 +909,11 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             case 3:
                 $scope.daystoIncrease = $scope.daystoIncrease + (32 - new Date(onedayAgo.getYear(), onedayAgo.getMonth(), 32).getDate());
                 onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
+
+
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 30))
+                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+
                 $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
                 $scope.isDateRangeSelected = true;
                 $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
@@ -739,6 +929,10 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             case 4:
                 $scope.daystoIncrease = $scope.daystoIncrease + 180;
                 onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
+
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 180))
+                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+
                 $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
                 $scope.isDateRangeSelected = true;
                 $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
@@ -759,6 +953,10 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 $scope.daystoIncrease = $scope.daystoIncrease + ydays;
 
                 onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
+
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + ydays))
+                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+
                 $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
                 $scope.isDateRangeSelected = true;
                 $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
@@ -779,16 +977,23 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     $scope.getonedayafter = function () {
         var onedayafter = new Date();
+        var onedaybefore = new Date();
 
         switch ($scope.ActiveButton) {
             case 1:
                 $scope.daystoIncrease = $scope.daystoIncrease - 1;
                 onedayafter = onedayafter.setDate(onedayafter.getDate() - $scope.daystoIncrease);
+
+             
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease - 1))
+
+                $scope.previousdate = $scope.datetoshow;
+
                 $scope.onedatafterdate = moment(onedayafter).format("DD-MM-YYYY");
                 $scope.isDateRangeSelected = true;
                 //  $scope.datetoshow = $scope.onedatafterdate;
                 $scope.datetoshow = moment(onedayafter).format($scope.culturedateformat);
-
+                $scope.onedayapidate = moment(onedayafter).format("DD-MM-YYYY");
 
                 if (moment(partodaydate).format($scope.culturedateformat) == moment(onedayafter).format($scope.culturedateformat)) {
 
@@ -801,13 +1006,21 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
                 }
 
-                $scope.get24hrs();
+                $scope.get24hrs(true);
                 break;
             case 2:
                 $scope.daystoIncrease = $scope.daystoIncrease - 7;
                 onedayafter = onedayafter.setDate(onedayafter.getDate() - $scope.daystoIncrease);
+
+                debugger;
+
+                 onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease - 7))
+
+                 $scope.previousdate = $scope.datetoshow;
+
                 $scope.onedatafterdate = moment(onedayafter).format("DD-MM-YYYY");
                 $scope.isDateRangeSelected = true;
+                $scope.onedayapidate = moment(onedayafter).format("DD-MM-YYYY");
                 //  $scope.datetoshow = $scope.onedatafterdate;
 
                 $scope.datetoshow = moment(onedayafter).format($scope.culturedateformat);
@@ -823,16 +1036,23 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     $("#rightarrow").show()
 
                 }
-                $scope.get7days(); break;
+                $scope.get7days(true); break;
             case 3:
                 //$scope.daystoIncrease = $scope.daystoIncrease - 30;
                 $scope.daystoIncrease = $scope.daystoIncrease - (32 - new Date(onedayafter.getYear(), onedayafter.getMonth(), 32).getDate())
                 onedayafter = onedayafter.setDate(onedayafter.getDate() - $scope.daystoIncrease);
+
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease - 30))
+
+                $scope.previousdate = $scope.datetoshow;
+
+               
                 $scope.onedatafterdate = moment(onedayafter).format("DD-MM-YYYY");
                 $scope.isDateRangeSelected = true;
+                
                 // $scope.datetoshow = $scope.onedatafterdate;
                 $scope.datetoshow = moment(onedayafter).format($scope.culturedateformat);
-
+                $scope.onedayapidate = moment(onedayafter).format("DD-MM-YYYY");
 
                 if (moment(partodaydate).format($scope.culturedateformat) == moment(onedayafter).format($scope.culturedateformat)) {
 
@@ -844,14 +1064,20 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     $("#rightarrow").show()
 
                 }
-                $scope.getmonth(); break;
+                $scope.getmonth(true); break;
             case 4:
                 $scope.daystoIncrease = $scope.daystoIncrease - 180;
                 onedayafter = onedayafter.setDate(onedayafter.getDate() - $scope.daystoIncrease);
+
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease - 180))
+                $scope.previousdate = $scope.datetoshow;
+
+
                 $scope.onedatafterdate = moment(onedayafter).format("DD-MM-YYYY");
+
                 $scope.isDateRangeSelected = true;
                 // $scope.datetoshow = $scope.onedatafterdate;
-
+                $scope.onedayapidate = moment(onedayafter).format("DD-MM-YYYY");
                 $scope.datetoshow = moment(onedayafter).format($scope.culturedateformat);
 
 
@@ -865,7 +1091,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     $("#rightarrow").show()
 
                 }
-                $scope.get6month(); break;
+                $scope.get6month(true); break;
             case 5:
                 var ydays = 365;
                 if (onedayafter.getYear() % 4 == 0) {
@@ -873,12 +1099,16 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 }
                 $scope.daystoIncrease = $scope.daystoIncrease - ydays;
                 onedayafter = onedayafter.setDate(onedayafter.getDate() - $scope.daystoIncrease);
+
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease - ydays))
+                $scope.previousdate = $scope.datetoshow;
+
                 $scope.onedatafterdate = moment(onedayafter).format("DD-MM-YYYY");
                 $scope.isDateRangeSelected = true;
                 //$scope.datetoshow = $scope.onedatafterdate;
                 $scope.datetoshow = moment(onedayafter).format($scope.culturedateformat);
 
-
+                $scope.onedayapidate = moment(onedayafter).format("DD-MM-YYYY");
                 if (moment(partodaydate).format($scope.culturedateformat) == moment(onedayafter).format($scope.culturedateformat)) {
 
                     $("#rightarrow").hide()
@@ -889,7 +1119,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     $("#rightarrow").show()
 
                 }
-                $scope.getyear(); break;
+                $scope.getyear(true); break;
         }
     }
 

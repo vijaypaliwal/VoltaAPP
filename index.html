@@ -48,8 +48,10 @@
         }
 
         .highcharts-legend-item {
-            display: none;
+          
         }
+
+    
 
         .weather li {
             font-size: 14px;
@@ -175,6 +177,11 @@
             height: auto !important;
         }
 
+        .swiper-slide
+        {
+               height: auto !important;
+        }
+
         .navbar-nav > li > a {
             padding-top: 6px;
             padding-bottom: 6px;
@@ -220,6 +227,22 @@
             .navbar-default .navbar-collapse, .navbar-default .navbar-form {
                 border-color: #A6A3A3;
             }
+
+            #container-speed .highcharts-container
+            {
+                height:auto !important;
+                   
+            }
+
+              #container-speed .highcharts-container svg
+            {
+                height:auto !important;
+                  
+            }
+              .gauge__value
+              {
+                  display:none;
+              }
         
     </style>
 </head>
@@ -230,21 +253,36 @@
             <div class="navbar-header">
                 <button data-ng-show="authentication.isAuth" type="button" class="navbar-toggle  collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                    <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} {{authentication.name}} <i class="fa fa-th-list"></i></span>
+                    <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} <span data-ng-bind="authentication.name"></span> <i class="fa fa-th-list"></i></span>
                 </button>
                 <a class="navbar-brand">Volt@</a>
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul data-ng-show="authentication.isAuth" class="nav navbar-nav">
-                    <li><a href="#/graph"><i class="fa fa-home"></i> {{ 'home' | translate }}</a></li>
+                    <li><a href="#/graph"><i class="fa fa-home"></i> {{ 'home' | translate }} </a></li>
                     <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i> {{ 'alerts' | translate }}</a></li>
                     <!--    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
                     <li><a href="#/alert">{{ 'alerts' | translate }}</a></li>
                     <li><a href="#/comparison">Comparison View</a></li>
 
-                         <li><a><i class="fa fa-cog"></i>&nbsp; {{ 'Setting' | translate }}</a></li>
-                              <li><a href="#/browserdetail"><i class="fa fa-globe"></i>&nbsp; {{ 'browserdetails' | translate }}</a></li>-->
+                     <li><a><i class="fa fa-cog"></i>&nbsp; {{ 'Setting' | translate }}</a></li>
+                     <li><a href="#/browserdetail"><i class="fa fa-globe"></i>&nbsp; {{ 'browserdetails' | translate }}</a></li>-->
+
+                     <li data-ng-show="authentication.isAuth">
+                        <div class="btn-group">
+                            <button class="btn btn-default">
+                                <img style="width:25px;" src="{{countryicon}}" alt="Alternate Text" /> &nbsp;<span ng-bind="languageText"></span></button>
+                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a ng-click="changeLanguage('en')"><img style="width:25px;" src="usa.png" alt="Alternate Text" /> English</a> </li>
+                                 <li><a ng-click="changeLanguage('it')"><img src="RussianFlag.gif" alt="Alternate Text" /> {{ 'russiantext' | translate }}</a> </li>
+                                 <li><a ng-click="changeLanguage('sp')"><img src="spain.png" alt="Alternate Text" /> {{ 'spanishtext' | translate }}</a> </li>
+                            </ul>
+                        </div>
+                    </li>
                     <li><a data-ng-click="logOut()"><i class="fa fa-sign-out"></i>&nbsp;{{ 'Signout' | translate }}</a></li>
 
                 </ul>
@@ -320,6 +358,9 @@
 
 
     <script src="scripts/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+
+<script src="http://code.highcharts.com/modules/solid-gauge.js"
     <script src="scripts/exporting.js"></script>
 
     <script type="text/javascript" src="scripts/raphael-min.js"></script>
