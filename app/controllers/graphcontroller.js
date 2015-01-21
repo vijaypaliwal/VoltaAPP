@@ -163,6 +163,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.now = 0;
     $scope.marginleft = 0;
 
+    $scope.tariffname = "";
+
 
 
     $scope.datetoshow = moment(todaydate).format($scope.culturedateformat);
@@ -423,6 +425,37 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         });
     };
 
+
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property/' + 18,
+        contentType: "application/json; charset=utf-8",
+        headers: {
+            'Authorization': 'Bearer ' + $scope.AuthToken
+        },
+        success: function (json) {
+
+
+
+            debugger;
+
+       
+            $scope.tariffname = json.tariff.electricityProviderXML.name + ' ' + json.tariff.electricityProviderXML.nation;
+       
+
+         
+        },
+        error: function (xhr, status) {
+            alert("Propert Get Error");
+            debugger;
+            log.error(xhr.responseText)
+
+
+        }
+    });
+
+
     $scope.gettodaycounter = function () {
 
         $http.get($scope.todayurl, null, { headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + $scope.AuthToken } }).success(function (data) {
@@ -511,9 +544,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.getsecondgraph();
     });
 
-    $(function () {
-        $(".highcharts-legend-item").attr("disabled", true);
-    });
+  
 
 
     var dt = new Date();
@@ -605,11 +636,43 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 case "7days":
                     $scope.graphstep = 1; break;
                 case "30days":
-                    $scope.graphstep = 7; break;
+                    $scope.graphstep = 7;
+
+                    var predate = $scope.previousdate;
+                    var pd = new Date(predate);
+                    $scope.previousdate = moment(pd).format("MMM YYYY");
+
+                    var aftdate = $scope.datetoshow;
+                    var ad = new Date(aftdate);
+                    $scope.datetoshow = moment(ad).format("MMM YYYY");
+
+                  
+                
+                  
+                    break;
                 case "6month":
-                    $scope.graphstep = 1; break;
+                    $scope.graphstep = 1;
+                    var predate = $scope.previousdate;
+                    var pd = new Date(predate);
+                    $scope.previousdate = moment(pd).format("MMM YYYY");
+
+                    var aftdate = $scope.datetoshow;
+                    var ad = new Date(aftdate);
+                    $scope.datetoshow = moment(ad).format("MMM YYYY");
+                    break;
                 case "1year":
-                    $scope.graphstep = 2; break;
+                    $scope.graphstep = 2;
+
+
+                    var predate = $scope.previousdate;
+                    var pd = new Date(predate);
+                    $scope.previousdate = moment(pd).format("MMM YYYY");
+
+                    var aftdate = $scope.datetoshow;
+                    var ad = new Date(aftdate);
+                    $scope.datetoshow = moment(ad).format("MMM YYYY");
+
+                    break;
             }
 
             $('#container1').highcharts({
@@ -627,17 +690,17 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
                 xAxis: {
-
                     categories: yData,
                     reversed: true,
                     type: 'datetime',
+                  
                     title: 'Last 24 Hours Detail',
                     lineWidth: 0,
                     minorGridLineWidth: 0,
                     lineColor: 'transparent',
                  
                     tickPosition: 'outside',
-                //    tickInterval: $scope.graphstep,
+                   tickInterval: $scope.graphstep,
                     labels: {
                         format: $scope.graphdateformat,
                       
@@ -645,7 +708,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                             fontSize: '6px',
                             
                         },
-                        step: $scope.graphstep
+                     //   step: $scope.graphstep
                    
                     },
                     minorTickLength: 0,

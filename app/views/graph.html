@@ -55,9 +55,9 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div style="text-align: center; margin-top: -25%">
+        <div style="text-align: center; margin-top: -17%">
 
-            <h4><span id="currentusage"></span>{{ 'kWh' | translate }} </h4>
+            <h4 style="margin-bottom:0px; font-size:16px;"><span id="currentusage"></span> {{ 'kWh' | translate }} </h4>
             <p>Current Usage</p>
         </div>
 
@@ -70,7 +70,7 @@
     <div class="col-md-3 col-xs-4">
         <p style="margin-bottom: 10px;"><span class="label label-default">Tariff</span></p>
 
-        <p>Npower 123</p>
+        <p>{{tariffname}}</p>
         <p>Cycle Peak</p>
 
     </div>
@@ -79,7 +79,7 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div style="font-size: 12px; color: #9599F8;  margin-top: -7px; margin-left: {{marginleft}}%">
-                   <span class="leftnow" style="font-size:10px; margin-left:9px; dispaly:none;">Now</span> <i style="font-size:20px; color:#777; margin-top:5px; position:absolute" class="fa fa-arrows-v"></i><span class="rightnow" style="font-size:10px; margin-left:9px; display:none;">Now</span>
+                   <span class="leftnow" style="font-size:10px; margin-left:9px; display:none;">Now</span> <i style="font-size:20px; color:#777; margin-top:5px; position:absolute" class="fa fa-arrows-v"></i><span class="rightnow" style="font-size:10px; margin-left:9px; display:none;">Now</span>
                 </div>
             </div>
         </div>

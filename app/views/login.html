@@ -1,15 +1,17 @@
-﻿
-<div class="hidden-xs">
-    <br /><br /><br /><br />
+﻿<div class="hidden-xs">
+    <br />
+    <br />
+    <br />
+    <br />
 </div>
 
 <style>
     input, .form-control {
-padding: 7px;
-padding-top: 12px;
-padding-bottom: 12px;
-height: auto;
-}
+        padding: 7px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        height: auto;
+    }
 </style>
 
 <br />
@@ -17,44 +19,46 @@ height: auto;
 
 <form name="loginForm" class="login-form" role="form">
     <div class="row">
-        
+
         <div class="col-md-12">
             <div class="well">
-                <h3 class="form-login-heading"><i style="color:rgb(91, 192, 222)" class="fa fa-unlock-alt"></i> {{ 'Logintext' | translate }} <small class="pull-right"></small></h3>
-                <input id="loginusername" type="text" class="form-control" placeholder="{{ 'Email' | translate }}" data-ng-model="loginData.userName" value="" required >
+                <h3 class="form-login-heading"><i style="color: rgb(91, 192, 222)" class="fa fa-unlock-alt"></i>&nbsp;{{ 'Logintext' | translate }} <small class="pull-right"></small></h3>
+                <input id="loginusername" type="text" class="form-control" placeholder="{{ 'Email' | translate }}" data-ng-model="loginData.userName" value="" required>
                 <br />
                 <input id="password" type="password" class="form-control" placeholder="{{ 'Password' | translate }}" data-ng-model="loginData.password" value="" required>
                 <br />
 
-           
-                
+
+
                 <!--<a class="btn btn-md btn-info btn-block" href="#/graph">Login</a>-->
-                <button style="margin-top:10px" class="btn btn-md btn-info btn-block" type="submit" data-ng-click="login()">
-                    
-                   <span style="display:none;" class="loader"><i class="fa fa-spin fa-spinner"></i> {{ 'Pleasewait' | translate }}... </span> 
+                <button style="margin-top: 10px" class="btn btn-md btn-info btn-block" type="submit" data-ng-click="login()">
+
+                    <span style="display: none;" class="loader"><i class="fa fa-spin fa-spinner"></i>{{ 'Pleasewait' | translate }}... </span>
                     <span class="logintext">{{ 'Logintext' | translate }}</span>
 
                 </button>
-            
+
             </div>
         </div>
-        
-   
+
+
     </div>
 </form>
+<br />
+<br />
+<br />
 
-
-<div style=" color:#fff; padding-top:10px; bottom:0; width:100%; position:fixed; text-align:center; padding-bottom:10px;" class="row">
+<div class="navbar-fixed-bottom">
+<div style="text-align:center" class="row">
     <div class="col-md-6 col-xs-6 btn-info">
-        <a href="#/signup" style="color:#fff;" class="btn"> New member</a>
+        <a href="#/signup" style="color: #fff;" class="btn">New member</a>
 
     </div>
-       <div class="col-md-6 col-xs-6 btn-primary">
-             <a href="#/forgotpassword" style="color:#fff; " class="btn"> Lost Password ?</a>
-           </div>
+    <div class="col-md-6 col-xs-6 btn-primary">
+        <a href="#/forgotpassword" style="color: #fff;" class="btn">Lost Password</a>
+    </div>
 </div>
 
- 
+</div>
 
 
-      
