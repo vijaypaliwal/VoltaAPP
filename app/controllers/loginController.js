@@ -31,10 +31,14 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
              debugger;
              if (xhr.status == "401" || xhr.status == "400")
              {
+                 $scope.loginData.userName = "";
+                 $scope.loginData.password = "";
                  log.error("Email or Password Provided is Incorrect Please try again");
              }
 
              else {
+                 $scope.loginData.userName = "";
+                 $scope.loginData.password = "";
                  log.error("some thing went wrong");
              }
            

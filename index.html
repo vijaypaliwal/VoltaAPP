@@ -415,7 +415,10 @@
     <script>
 
         $(".navbar-nav li a").click(function () {
-            $("#navbar").css("height", "1px");
+
+            $("#navbar").removeClass("in")
+            $("#navbar").addClass("collapse")
+        
         });
 
      
