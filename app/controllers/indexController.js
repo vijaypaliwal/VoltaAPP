@@ -3,7 +3,16 @@
 app.controller('indexController', ['$scope', '$location', 'authService', 'log', '$translate',  function ($scope, $location, authService, log, $translate)
 {
   
+    var connectionStatus = false;
 
+
+
+
+
+    connectionStatus = navigator.onLine ? 'online' : 'offline';
+
+
+    alert(connectionStatus);
  
  
   
