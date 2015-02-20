@@ -15,8 +15,7 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
         highusageday: false,
         largeconsumes: false,
         computers: false,
-        light: false,
-        emailAlert: $scope.email
+        light:false,
      
     };
 
@@ -52,7 +51,6 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
                 if (data != null) {
                     $scope.alert.highusagehr = data.hourAlert;
                     $scope.alert.highusageday = data.dayAlert;
-                    $scope.alert.emailAlert = data.emailAlert;
 
                     $scope.$apply();
                 }
@@ -84,7 +82,7 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
             url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/alert',
             type: "POST",
             accept: "application/json",
-            data: JSON.stringify({ "hourAlert": $scope.alert.highusagehr, "dayAlert": $scope.alert.highusageday, "emailAlert" : $scope.alert.emailAlert }),
+            data: JSON.stringify({ "hourAlert": $scope.alert.highusagehr, "dayAlert": $scope.alert.highusageday }),
             headers: {
                 'Authorization': 'Bearer ' + $scope.AuthToken
             },

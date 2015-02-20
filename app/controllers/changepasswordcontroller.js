@@ -3,13 +3,8 @@
 
 var CpasswordURL = "http://54.154.64.51:8080/voltaware/v1.0/password/tokens/"
 
-app.controller('changepasswordcontroller', ['$scope', '$location', 'authService', 'localStorageService', '$http', 'log', function ($scope, $location, authService,localStorageService, $http, log) {
+app.controller('changepasswordcontroller', ['$scope','$location', 'authService', '$http', 'log', function ($scope,$location, authService, $http, log) {
     $scope.message = 'Home';
-
-    var authData = localStorageService.get('authorizationData');
-
-    $scope.AuthToken = authData.token;
-
     $scope.cp = {
         oldpassword: "",
         newpassword: ""
@@ -19,41 +14,46 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
     $scope.authentication = authService.authentication;
 
 
-    alert($scope.AuthToken);
+    $scope.getUrlParameter = function (sParam) {
+        var sPageURL = window.location.href;
+        var sURLVariables = sPageURL.split('?');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('?');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+
+        $scope.tokenvalue = sURLVariables[1];
+
+     
+    }
 
     $scope.changepassword = function () {
 
-        alert("Change Password In");
+     
     
         $.ajax({
-            url: CpasswordURL + $scope.AuthToken,
+            url: CpasswordURL + $scope.tokenvalue,
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify($scope.cp.newpassword),
             dataType: "json",
             success: function (response, status)
             {
-                alert("Success");
-
-                debugger;
-
-              //  authService.logOut();
-             //   $location.path('/login');
-               // log.success("Please try to login with your new password")
+                authService.logOut();
+                $location.path('/login');
+                log.success("Please try to login with your new password")
             },
             error: function (xhr) {
-
-                alert("error");
-
-                debugger;
 
                 if (xhr.status == 200 && xhr.status < 300) {
                     authService.logOut();
 
-                 //   window.location.href = "http://54.154.64.51:8080/angular/#/login";
+                    window.location.href = "http://54.154.64.51:8080/angular/#/login";
                
-                //    log.success("Please try to login with your new password")
-                  //  $location.path('/login');
+                    log.success("Please try to login with your new password")
+                    $location.path('/login');
 
                 }
 
@@ -71,7 +71,7 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
      
     };
 
-  
+    $scope.getUrlParameter();
  
 
 }]);

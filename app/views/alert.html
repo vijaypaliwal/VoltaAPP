@@ -42,7 +42,7 @@
 
 <br />
 
-<!--<h4>Appliance Left on</h4>
+<h4>Appliance Left on</h4>
 <hr />
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -79,14 +79,14 @@
             type="checkbox" id="Bs-switch3" />
     </div>
 
-</div>-->
+</div>
 
 <br />
 <hr />
 <div class="row">
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <input data-ng-model="alert.emailAlert" placeholder="Type Email Address" style="width: 100%;" type="text" />
+        <input style="width: 100%;" ng-disabled="true" type="text" value="{{email}}" />
     </div>
 
 </div>
@@ -94,8 +94,8 @@
 <hr />
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a class="btn btn-success" data-ng-click="savealert()"><i class="fa fa-check"></i>&nbsp;Save Alert</a>
-        <a href="#/graph" class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;cancel</a>
+        <a class="btn btn-success" data-ng-click="savealert()"><i class="fa fa-check"></i>Save Alert</a>
+        <a href="#/graph" class="btn btn-danger"><i class="fa fa-times"></i>cancel</a>
     </div>
 </div>
 

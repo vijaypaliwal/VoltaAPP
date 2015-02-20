@@ -89,12 +89,6 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.myculture(userLang);
 
 
-    var twoyearago = new Date();
-    twoyearago.setDate(twoyearago.getDate() - 730);
-
-    
-
-
 
     if (userLang == "es" || "ru" || "ru-ru") {
 
@@ -105,6 +99,10 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     else {
         $("#CurrentDate").html("<b>" + moment(new Date()).format("DD MMM YYYY,h:mm:ss a") + "</b>");
     }
+
+
+
+
 
 
 
@@ -693,25 +691,18 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
                 xAxis: {
                     categories: yData,
-                    tickLength: 7,
                     reversed: true,
                     type: 'datetime',
                   
                     title: 'Last 24 Hours Detail',
                     lineWidth: 0,
                     minorGridLineWidth: 0,
-                    
-                    //  lineColor: 'transparent',
-
-                    tickmarkPlacement: 'on',
-
+                    lineColor: 'transparent',
                  
-                 
-                 //  tickPosition: 'outside',
+                    tickPosition: 'outside',
                    tickInterval: $scope.graphstep,
                     labels: {
                         format: $scope.graphdateformat,
-                      
                       
                         style: {
                             fontSize: '6px',
@@ -720,10 +711,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                      //   step: $scope.graphstep
                    
                     },
-                   //  minorTickLength: 10,
-                   
-
-                
+                    minorTickLength: 0,
+                    tickLength: 0
                    
                 },
                 yAxis: {
@@ -736,6 +725,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                         style: {
                             fontSize: '6px',
                         },
+
+                      
                       
                     }
                 },
@@ -930,8 +921,6 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     $scope.getonedayback = function () {
 
-        debugger;
-
         var onedayAgo = new Date();
         var onedaybefore = new Date();
 
@@ -1001,102 +990,48 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 }
                 $scope.getmonth(true); break;
             case 4:
+                $scope.daystoIncrease = $scope.daystoIncrease + 180;
+                onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
 
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 180))
+                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
 
-                var onedayAgocheck = new Date();
-                var x = $scope.daystoIncrease;
+                $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
+                $scope.isDateRangeSelected = true;
+                $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
 
-                x = x + 180;
-                onedayAgocheck = onedayAgocheck.setDate(onedayAgocheck.getDate() - x);
-
-
-                if (new Date(twoyearago) <= new Date(onedayAgocheck)) {
-
-
-                    $scope.daystoIncrease = $scope.daystoIncrease + 180;
-                    onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
-
-                    onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 180))
-                    $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
-
-                    $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
-                    $scope.isDateRangeSelected = true;
-                    $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
-
-                    if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
-                        $("#rightarrow").show()
-                    }
-                    else {
-                        $("#rightarrow").hide()
-
-                    }
-                    $scope.get6month(true);
+                if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
+                    $("#rightarrow").show()
                 }
-
                 else {
-
-
-                    log.info("can't go back any further");
+                    $("#rightarrow").hide()
 
                 }
-                break;
+                $scope.get6month(true); break;
             case 5:
-             
                 var ydays = 365;
                 if (onedayAgo.getYear() % 4 == 0) {
                     ydays = 366;
                 }
-               
-                var onedayAgocheck = new Date();
-                var x = $scope.daystoIncrease;
+                $scope.daystoIncrease = $scope.daystoIncrease + ydays;
 
-                 x = x + ydays;
-                onedayAgocheck = onedayAgocheck.setDate(onedayAgocheck.getDate() - x);
+                onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
 
+                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + ydays))
+                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
 
+                $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
+                $scope.isDateRangeSelected = true;
+                $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
 
-               
-
-
-                if (new Date(twoyearago) <= new Date(onedayAgocheck)) {
-
-
-                    $scope.daystoIncrease = $scope.daystoIncrease + ydays;
-                    onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
-                    onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + ydays))
-
-
-                    $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
-
-                    $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
-                    $scope.isDateRangeSelected = true;
-                    $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
-                    if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
-                        $("#rightarrow").show()
-                    }
-                    else {
-
-
-                        debugger;
-
-                    //   log.info("can't go forward any further");
-                       $("#rightarrow").hide()
-
-                    }
-                    $scope.getyear(true);
+                if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
+                    $("#rightarrow").show()
                 }
-
                 else {
-             
+                    $("#rightarrow").hide()
 
-                    log.info("can't go back any further");
-                    
                 }
-
-
-               
-
-              break;
+                $scope.getyear(true); break;
         }
 
 
