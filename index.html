@@ -442,8 +442,9 @@
 
         function onDeviceReady() {
             document.addEventListener("backbutton", onBackKeyDown, false); //Listen to the User clicking on the back button
-            document.addEventListener("offline", function () { alert("You're offline") }, false);
-            document.addEventListener("online", function () { alert("You're online") }, false);
+            document.addEventListener("offline", function () { document.getElementById("nointernet").innerHTML = "There are no internet connection available in your device"; $(".nointernet").show() }, false);
+            document.addEventListener("online", function ()
+            {}, false);
         }
 
         function onBackKeyDown(e) {
@@ -461,7 +462,8 @@
         }
 
 
-        
+        document.getElementById("nointernet").innerHTML = "There are no internet connection available in your device";
+        $(".nointernet").show();
 
        
 
