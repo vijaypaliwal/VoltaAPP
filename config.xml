@@ -41,6 +41,9 @@
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 
     <!-- Plugins -->
+<feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
 
     <!-- Core plugins -->
     <gap:plugin name="org.apache.cordova.battery-status" />
