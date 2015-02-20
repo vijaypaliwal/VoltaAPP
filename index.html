@@ -16,6 +16,15 @@
      <link href="content/css/bootstrap-switch.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
 
+   <script src="scripts/cordova.js"></script>
+
+    <script>
+        function onLoad() {
+            document.addEventListener("offline", function () { alert("You're offline") }, false);
+            document.addEventListener("online", function () { alert("You're online") }, false);
+        }
+    </script>
+
     <style>
         body {
             line-height: initial !important;
@@ -246,7 +255,7 @@
         
     </style>
 </head>
-<body data-ng-controller="indexController">
+<body onload="onLoad()" data-ng-controller="indexController">
 
     <nav style="color: #fff;" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -262,6 +271,7 @@
                 <ul data-ng-show="authentication.isAuth" class="nav navbar-nav">
                     <li><a href="#/graph"><i class="fa fa-home"></i> {{ 'home' | translate }} </a></li>
                     <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i> {{ 'alerts' | translate }}</a></li>
+                    <li><a href="#/changepassword"><i class="fa fa-unlock"></i> Change Password </a></li>
                     <!--    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
                     <li><a href="#/alert">{{ 'alerts' | translate }}</a></li>
                     <li><a href="#/comparison">Comparison View</a></li>
@@ -317,7 +327,7 @@
 
 
 
-    <script src="scripts/cordova.js"></script>
+   <!-- <script src="scripts/cordova.js"></script>-->
     <!-- 3rd party libraries -->
     <script src="scripts/jquery-1.11.0.min.js"></script>
 

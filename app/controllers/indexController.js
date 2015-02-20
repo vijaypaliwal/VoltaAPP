@@ -3,6 +3,8 @@
 app.controller('indexController', ['$scope', '$location', 'authService', 'log', '$translate',  function ($scope, $location, authService, log, $translate)
 {
   
+
+ 
  
   
     $scope.authentication = authService.authentication;
