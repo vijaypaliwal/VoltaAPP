@@ -9,10 +9,6 @@ app.controller('indexController', ['$scope', '$location', 'authService', 'log', 
 
 
 
-    connectionStatus = navigator.onLine ? 'online' : 'offline';
-
-
-    alert(connectionStatus);
  
  
   
