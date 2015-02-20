@@ -16,33 +16,10 @@
     <link href="content/css/bootstrap-switch.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
 
-    <script src="scripts/cordova.js"></script>
+       <!--   <script src="phonegap-1.3.0.js"></script>-->
+ 
+   <script src="scripts/cordova.js"></script>
 
-    <script>
-
-        alert(navigator.network.connection.type);
-
-        if (navigator.network.connection.type == Connection.NONE) {
-
-            alert("Right now online");
-        }
-
-        else {
-
-
-
-
-            alert("Right now offline");
-
-        }
-
-
-
-        function onLoad() {
-            document.addEventListener("offline", function () { alert("You're offline") }, false);
-            document.addEventListener("online", function () { alert("You're online") }, false);
-        }
-    </script>
 
     <style>
         body {
@@ -465,6 +442,8 @@
 
         function onDeviceReady() {
             document.addEventListener("backbutton", onBackKeyDown, false); //Listen to the User clicking on the back button
+            document.addEventListener("offline", function () { alert("You're offline") }, false);
+            document.addEventListener("online", function () { alert("You're online") }, false);
         }
 
         function onBackKeyDown(e) {
@@ -480,6 +459,23 @@
                 navigator.app.exitApp();// Otherwise we quit the app.
             }
         }
+
+
+        
+
+        alert("connection type " + navigator.network.connection.type);
+
+        if (navigator.network.connection.type == Connection.NONE) {
+
+            alert("Right now online");
+        }
+
+        else {
+
+            alert("Right now offline");
+
+        }
+
     </script>
 
 </body>
