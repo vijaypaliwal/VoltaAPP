@@ -13,13 +13,18 @@
     <link href="content/css/font-awesome.min.css" rel="stylesheet" />
     <link href="content/css/social-buttons.css" rel="stylesheet" />
     <link href="content/css/idangerous.swiper.css" rel="stylesheet" />
-     <link href="content/css/bootstrap-switch.css" rel="stylesheet" />
+    <link href="content/css/bootstrap-switch.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
+
+  <!--    <script src="phonegap-1.3.0.js"></script>-->
+ 
+    
+
 
     <style>
         body {
             line-height: initial !important;
-            margin-bottom:0px;
+            margin-bottom: 0px;
         }
 
         .text-primary {
@@ -48,10 +53,9 @@
         }
 
         .highcharts-legend-item {
-          
         }
 
-    
+
 
         .weather li {
             font-size: 14px;
@@ -63,9 +67,8 @@
 
         .btn {
             padding: 13px 15px;
-            font-size:14px;
-            white-space:initial;
-       
+            font-size: 14px;
+            white-space: initial;
         }
 
         .form-horizontal .control-label {
@@ -100,9 +103,9 @@
             box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
             border: transparent;
         }
-        .highcharts-yaxis-title
-        {
-            font-size:8px;
+
+        .highcharts-yaxis-title {
+            font-size: 8px;
         }
     </style>
 
@@ -171,15 +174,14 @@
             background: #fff;
         }
 
-    
+
 
         .swiper-wrapper {
             height: auto !important;
         }
 
-        .swiper-slide
-        {
-               height: auto !important;
+        .swiper-slide {
+            height: auto !important;
         }
 
         .navbar-nav > li > a {
@@ -228,40 +230,39 @@
                 border-color: #A6A3A3;
             }
 
-            #container-speed .highcharts-container
-            {
-                height:auto !important;
-                   
+        #container-speed .highcharts-container {
+            height: auto !important;
+        }
+
+            #container-speed .highcharts-container svg {
+                height: auto !important;
             }
 
-              #container-speed .highcharts-container svg
-            {
-                height:auto !important;
-                  
-            }
-              .gauge__value
-              {
-                  display:none;
-              }
-        
+        .gauge__value {
+            display: none;
+        }
     </style>
+
+
+
 </head>
-<body data-ng-controller="indexController">
+<body onload="onLoad()" data-ng-controller="indexController">
 
     <nav style="color: #fff;" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button data-ng-show="authentication.isAuth" type="button" class="navbar-toggle  collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                    <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} <span data-ng-bind="authentication.name"></span> <i class="fa fa-th-list"></i></span>
+                    <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} <span data-ng-bind="authentication.name"></span><i class="fa fa-th-list"></i></span>
                 </button>
                 <a class="navbar-brand">Volt@</a>
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul data-ng-show="authentication.isAuth" class="nav navbar-nav">
-                    <li><a href="#/graph"><i class="fa fa-home"></i> {{ 'home' | translate }} </a></li>
-                    <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i> {{ 'alerts' | translate }}</a></li>
+                    <li><a href="#/graph"><i class="fa fa-home"></i>{{ 'home' | translate }} </a></li>
+                    <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i>{{ 'alerts' | translate }}</a></li>
+                    <li><a href="#/changepassword"><i class="fa fa-unlock"></i>Change Password </a></li>
                     <!--    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
                     <li><a href="#/alert">{{ 'alerts' | translate }}</a></li>
                     <li><a href="#/comparison">Comparison View</a></li>
@@ -269,17 +270,24 @@
                      <li><a><i class="fa fa-cog"></i>&nbsp; {{ 'Setting' | translate }}</a></li>
                      <li><a href="#/browserdetail"><i class="fa fa-globe"></i>&nbsp; {{ 'browserdetails' | translate }}</a></li>-->
 
-                     <li data-ng-show="authentication.isAuth">
+                    <li data-ng-show="authentication.isAuth">
                         <div class="btn-group">
                             <button class="btn btn-default">
-                                <img style="width:25px;" src="{{countryicon}}" alt="Alternate Text" /> &nbsp;<span ng-bind="languageText"></span></button>
+                                <img style="width: 25px;" src="{{countryicon}}" alt="Alternate Text" />
+                                &nbsp;<span ng-bind="languageText"></span></button>
                             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a ng-click="changeLanguage('en')"><img style="width:25px;" src="usa.png" alt="Alternate Text" /> English</a> </li>
-                                 <li><a ng-click="changeLanguage('it')"><img src="RussianFlag.gif" alt="Alternate Text" /> {{ 'russiantext' | translate }}</a> </li>
-                                 <li><a ng-click="changeLanguage('sp')"><img src="spain.png" alt="Alternate Text" /> {{ 'spanishtext' | translate }}</a> </li>
+                                <li><a ng-click="changeLanguage('en')">
+                                    <img style="width: 25px;" src="usa.png" alt="Alternate Text" />
+                                    English</a> </li>
+                                <li><a ng-click="changeLanguage('it')">
+                                    <img src="RussianFlag.gif" alt="Alternate Text" />
+                                    {{ 'russiantext' | translate }}</a> </li>
+                                <li><a ng-click="changeLanguage('sp')">
+                                    <img src="spain.png" alt="Alternate Text" />
+                                    {{ 'spanishtext' | translate }}</a> </li>
                             </ul>
                         </div>
                     </li>
@@ -317,7 +325,12 @@
 
 
 
-    <script src="scripts/cordova.js"></script>
+
+     <script src="scripts/cordova.js"></script>
+
+  
+
+
     <!-- 3rd party libraries -->
     <script src="scripts/jquery-1.11.0.min.js"></script>
 
@@ -360,12 +373,12 @@
     <script src="scripts/highcharts.js"></script>
     <script src="http://code.highcharts.com/highcharts-more.js"></script>
 
-<script src="http://code.highcharts.com/modules/solid-gauge.js"
+    <script src="http://code.highcharts.com/modules/solid-gauge.js"></script>
     <script src="scripts/exporting.js"></script>
 
     <script type="text/javascript" src="scripts/raphael-min.js"></script>
     <script type="text/javascript" src="scripts/kuma-gauge.jquery.js"></script>
-      <script src="scripts/bootstrap-switch.js"></script>
+    <script src="scripts/bootstrap-switch.js"></script>
     <script src="scripts/angular.min.js"></script>
     <script src="scripts/angular-route.min.js"></script>
     <script src="scripts/angular-local-storage.min.js"></script>
@@ -383,13 +396,13 @@
     <script src="scripts/moment.min.js"></script>
     <script src="scripts/ui-bootstrap-0.8.0.js"></script>
     <script src="scripts/ui-bootstrap-tpls-0.8.0.js"></script>
-   
+
     <script data-require="angular-resource@1.2.14" data-semver="1.2.14" src="http://code.angularjs.org/1.2.14/angular-resource.js"></script>
     <!-- Load app main script -->
-     <script src="scripts/SwitchModule.js"></script>
+    <script src="scripts/SwitchModule.js"></script>
     <script src="app/app.js?v=2"></script>
     <script src="scripts/multilangual.js"></script>
-   
+
 
     <!-- Load services -->
     <script src="app/services/authInterceptorService.js?v=2"></script>
@@ -415,10 +428,13 @@
     <script>
 
         $(".navbar-nav li a").click(function () {
-            $("#navbar").css("height", "1px");
+
+            $("#navbar").removeClass("in")
+            $("#navbar").addClass("collapse")
+
         });
 
-     
+
     </script>
 
     <script>
@@ -426,6 +442,8 @@
 
         function onDeviceReady() {
             document.addEventListener("backbutton", onBackKeyDown, false); //Listen to the User clicking on the back button
+            document.addEventListener("offline", function () { alert("You're offline") }, false);
+            document.addEventListener("online", function () { alert("You're online") }, false);
         }
 
         function onBackKeyDown(e) {
@@ -441,6 +459,12 @@
                 navigator.app.exitApp();// Otherwise we quit the app.
             }
         }
+
+
+        
+
+       
+
     </script>
 
 </body>

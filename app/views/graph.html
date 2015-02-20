@@ -1,7 +1,18 @@
 ﻿<link href="content/css/graph.css" rel="stylesheet" />
 <script src="scripts/idangerous.swiper.min.js"></script>
 
-
+<style>
+    .mydate {
+border: 1px solid #ccc;
+display: inline-block;
+background: #388f58;
+color: #fff;
+line-height: 18px;
+font-size: 13px;
+padding-top:1px;
+padding-bottom:1px;
+}
+</style>
 
 
 
@@ -169,14 +180,14 @@
                     <div class="col-md-11 col-xs-11">
                         <div style="width: 100%;" class="mydate">
                             <div class="col-md-3 col-xs-3">
-                                <a style="padding:3px 10px 3px 10px;" class="btn btn-info btn-xs" data-ng-click="getonedayback()">
+                                <a style="padding:0px 10px 0px 10px;" class="btn btn-info btn-xs" data-ng-click="getonedayback()">
                                     <i class="fa fa-chevron-left"></i>
                                 </a>
                             </div>
 
                             <div style="text-align: center;" class="col-md-6 col-xs-6">{{datetoshow}}</div>
                             <div style="text-align: right" class="col-md-3 col-xs-3">
-                                <a id="rightarrow" style="display: none; padding: 3px 10px 3px 10px;" data-ng-click="getonedayafter()" class="btn btn-info">
+                                <a id="rightarrow" style="display: none; padding: 0px 10px 0px 10px;" data-ng-click="getonedayafter()" class="btn btn-info">
                                     <i class="fa fa-chevron-right"></i>
                                 </a>
                             </div>
@@ -184,7 +195,7 @@
                     </div>
 
                     <div style="text-align: right" class="col-md-1 col-xs-1">
-                        <a style="padding: 6px; padding-top: 4px; padding-bottom: 4px; margin-right:5px;" class="btn btn-info btn-xs pull-right" data-ng-click="showgraphmenu()"><i class="fa fa-th-list"></i></a>
+                        <a style="padding: 6px; padding-top: 2px; padding-bottom: 2px; margin-right:5px;" class="btn btn-info btn-xs pull-right" data-ng-click="showgraphmenu()"><i class="fa fa-th-list"></i></a>
                     </div>
 
 
