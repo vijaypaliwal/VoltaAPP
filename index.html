@@ -253,16 +253,18 @@
             <div class="navbar-header">
                 <button data-ng-show="authentication.isAuth" type="button" class="navbar-toggle  collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                    <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} <span data-ng-bind="authentication.name"></span><i class="fa fa-th-list"></i></span>
+                    <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} &nbsp;<span data-ng-bind="authentication.name"></span>&nbsp;<i class="fa fa-th-list"></i></span>
                 </button>
                 <a class="navbar-brand">Volt@</a>
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul data-ng-show="authentication.isAuth" class="nav navbar-nav">
-                    <li><a href="#/graph"><i class="fa fa-home"></i>{{ 'home' | translate }} </a></li>
-                    <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i>{{ 'alerts' | translate }}</a></li>
-                    <li><a href="#/changepassword"><i class="fa fa-unlock"></i>Change Password </a></li>
+                    <li><a href="#/graph"><i class="fa fa-home"></i>&nbsp;{{ 'home' | translate }} </a></li>
+                     <li><a href="#/household"><i class="fa fa-database"></i>&nbsp;{{ 'household' | translate }}</a></li>
+                    <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i>&nbsp;{{ 'alerts' | translate }}</a></li>
+                    <li><a href="#/changepassword"><i class="fa fa-unlock"></i>&nbsp;Change Password </a></li>
+                     <li><a href="#/account"><i class="fa fa-cog"></i>&nbsp;Account</a></li>
                     <!--    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
                     <li><a href="#/alert">{{ 'alerts' | translate }}</a></li>
                     <li><a href="#/comparison">Comparison View</a></li>
@@ -326,7 +328,7 @@
 
 
 
-     <script src="scripts/cordova.js"></script>
+   <script src="scripts/cordova.js"></script>
 
   
 
@@ -422,6 +424,9 @@
     <script src="app/controllers/browserdetailcontroller.js"></script>
     <script src="app/controllers/householdlcontroller.js"></script>
     <script src="app/controllers/alertcontroller.js"></script>
+
+      <script src="app/controllers/accountcontroller.js"></script>
+         
     <script src="app/controllers/comparisioncontroller.js"></script>
 
 

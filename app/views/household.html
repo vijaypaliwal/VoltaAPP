@@ -1,0 +1,76 @@
+﻿<div>
+    <h4>Household Profile & Tariff Setup</h4>
+</div>
+<hr />
+
+
+    <form name="houseHold" id="houseHold" class="form-horizontal" role="form">
+
+    
+        <div class="form-group">
+            <label class="control-label col-md-12">Property Type</label>
+            <div class="col-md-12">
+                <select data-ng-model="household.propertytype" id="Propertytypelist" class="form-control">  </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-12">Number of adults</label>
+            <div class="col-md-12">
+               <select id="numberofadult" class="form-control" required data-ng-model="household.numberofadults" data-ng-options="choice.Value as choice.Value for choice in numberofadults"></select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-12">Number of Children</label>
+            <div class="col-md-12">
+               <select id="numberofchildren" class="form-control" data-ng-model="household.numberofchildrens" data-ng-options="choice.Value as choice.Value for choice in numberofchildrens"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-12">Number of Bedroom</label>
+            <div class="col-md-12">
+               <select id="numberofbedroom" required class="form-control" data-ng-model="household.numberofbedrooms" data-ng-options="choice.Value as choice.Value for choice in numberofbedrooms"></select>
+            </div>
+        </div>
+     
+
+     
+    
+      <div class="form-group">
+            <label class="control-label col-md-12">Electricity Provider</label>
+            <div class="col-md-12">
+                <select data-ng-model="household.electricityprovider" id="electricityproviderlist" class="form-control">
+                    
+                </select>
+            </div>
+        </div>
+      <div class="form-group">
+            <label class="control-label col-md-12">Tarrif</label>
+            <div class="col-md-12">
+                <select data-ng-model="household.tarrif" id="tarriflist" class="form-control">
+                   
+                </select>
+            </div>
+        </div>
+   
+        <hr />
+
+        <div class="row">
+            <div class="col-md-12">
+                <a style="width:100%;" data-ng-disabled="houseHold.$invalid" data-ng-click="saveproperty()" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Save</a>
+            </div>
+        </div>
+        <br />
+    </form>
+
+<style>
+    label
+    {
+        margin-bottom:3px !important;
+    }
+</style>
+
+

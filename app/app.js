@@ -61,6 +61,11 @@ app.config(function ($routeProvider) {
         templateUrl: "app/views/comparison.html"
     });
 
+    $routeProvider.when("/account", {
+        controller: "accountcontroller",
+        templateUrl: "app/views/account.html"
+    });
+
     // Default Page load 
     $routeProvider.otherwise({ redirectTo: "/login" });
 
