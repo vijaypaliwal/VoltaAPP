@@ -5,7 +5,7 @@
     .mydate {
 border: 1px solid #ccc;
 display: inline-block;
-background: #388f58;
+background: #43ac6a ;
 color: #fff;
 line-height: 18px;
 font-size: 13px;
@@ -13,9 +13,6 @@ padding-top:1px;
 padding-bottom:1px;
 }
 </style>
-
-
-
 <script>
     var mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
@@ -32,9 +29,6 @@ padding-bottom:1px;
         mySwiper.swipeNext()
     })
 </script>
-
-
-
 <!-- Dispaly date and weatther info-->
 <div class="row">
     <div class="col-md-12">
@@ -69,7 +63,7 @@ padding-bottom:1px;
         <div style="text-align: center; margin-top: -17%">
 
             <h4 style="margin-bottom:0px; font-size:16px;"><span id="currentusage"></span> {{ 'kWh' | translate }} </h4>
-            <p>Current Usage</p>
+            <p>{{ 'currentusage' | translate }}</p>
         </div>
 
     </div>
@@ -79,10 +73,10 @@ padding-bottom:1px;
 
 <div class="row">
     <div class="col-md-3 col-xs-4">
-        <p style="margin-bottom: 10px;"><span class="label label-default">Tariff</span></p>
+        <p style="margin-bottom: 10px;"><span class="label label-default">{{ 'tariff' | translate }}</span></p>
 
         <p>{{tariffname}}</p>
-        <p>Cycle Peak</p>
+        <p>{{ 'cycle' | translate }} {{ 'peak' | translate }}</p>
 
     </div>
 
@@ -90,7 +84,7 @@ padding-bottom:1px;
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div style="font-size: 12px; color: #9599F8;  margin-top: -7px; margin-left: {{marginleft}}%">
-                   <span class="leftnow" style="font-size:10px; margin-left:9px; display:none;">Now</span> <i style="font-size:20px; color:#777; margin-top:5px; position:absolute" class="fa fa-arrows-v"></i><span class="rightnow" style="font-size:10px; margin-left:9px; display:none;">Now</span>
+                   <span class="leftnow" style="font-size:10px; margin-left:9px; display:none;">{{ 'now' | translate }}</span> <i style="font-size:20px; color:#777; margin-top:5px; position:absolute" class="fa fa-arrows-v"></i><span class="rightnow" style="font-size:10px; margin-left:9px; display:none;">{{ 'now' | translate }}</span>
                 </div>
             </div>
         </div>
@@ -133,13 +127,13 @@ padding-bottom:1px;
 
         <div style="color: #9599F8" class="row">
             <div class="col-md-4 col-xs-4">
-                <p style="font-size:11px;">off Peak</p>
+                <p style="font-size:11px;">{{ 'offpeak' | translate }}</p>
             </div>
             <div style="text-align: center" class="col-md-4 col-xs-4">
-                <p style="font-size: 11px;">Peak</p>
+                <p style="font-size: 11px;">{{ 'peak' | translate }}</p>
             </div>
             <div style="text-align: right" class="col-md-4 col-xs-4">
-                <p style="font-size: 11px;">Saver</p>
+                <p style="font-size: 11px;">{{ 'saver' | translate }}</p>
             </div>
 
         </div>
@@ -149,7 +143,7 @@ padding-bottom:1px;
 
 <div class="row">
     <div style="text-align:center" class="col-md-12">
-        <h5 style="margin-top: 4px;"><i style="font-size: 45px;" class="fa fa-home"></i><span id="today"></span>kWh used so far today</h5>
+        <h5 style="margin-top: 4px;"><i style="font-size: 45px;" class="fa fa-home"></i><span id="today"></span>{{ 'kWh' | translate }} {{ 'usedsofartoday' | translate }}</h5>
     </div>
 </div>
 <hr />
@@ -214,7 +208,7 @@ padding-bottom:1px;
 
                 <div class="row">
                     <div class="col-md-12">
-                        <a class="btn btn-success">How do you Compare</a>
+                        <a class="btn btn-success">{{ 'howdoyoucompare' | translate }}</a>
                     </div>
                 </div>
 
@@ -233,7 +227,7 @@ padding-bottom:1px;
                     <div class="row">
 
                         <div class="col-md-3 col-xs-4">
-                            <p>you (based on your history)</p>
+                            <p>{{ 'youbased' | translate }}</p>
 
                         </div>
                         <div class="col-md-9 col-xs-8">
@@ -265,7 +259,7 @@ padding-bottom:1px;
                     <div class="row">
 
                         <div class="col-md-3 col-xs-4">
-                            <p>Other 2 Bed flats naborwides</p>
+                            <p>{{ 'other2beds' | translate }}</p>
 
                         </div>
                         <div class="col-md-9 col-xs-8">
@@ -295,7 +289,7 @@ padding-bottom:1px;
                     <div class="row">
 
                         <div class="col-md-3 col-xs-4">
-                            <p>Your region as an average</p>
+                            <p>{{ 'yourregion' | translate }}</p>
                         </div>
                         <div class="col-md-9 col-xs-8">
 

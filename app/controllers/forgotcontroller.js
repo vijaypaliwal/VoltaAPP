@@ -24,10 +24,7 @@ app.controller('forgotcontroller', ['$scope', '$http', 'log', '$location', funct
             },
             error: function (err) {
 
-                alert("Error");
-                debugger;
-
-                log.error(err.statusText);
+                log.error("Email address unknown Please try again");
 
 
             }

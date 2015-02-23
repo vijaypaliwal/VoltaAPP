@@ -1,76 +1,94 @@
-﻿<div>
-    <h4>Household Profile & Tariff Setup</h4>
-</div>
+﻿
+
+
+
+    <h3 style="margin-top:0px; margin-bottom:0px;">{{ 'householdprofile' | translate }} & {{ 'tariff' | translate }} {{ 'setup' | translate }}</h3>
 <hr />
 
 
     <form name="houseHold" id="houseHold" class="form-horizontal" role="form">
+        <h4>{{ 'householdprofile' | translate }} &raquo;</h4>
+     
 
-    
         <div class="form-group">
-            <label class="control-label col-md-12">Property Type</label>
-            <div class="col-md-12">
-                <select data-ng-model="household.propertytype" id="Propertytypelist" class="form-control">  </select>
+            <label class="control-label col-md-4">{{ 'propertytype' | translate }}</label>
+            <div class="col-md-3">
+                <select ng-model="household.propertytype" id="Propertytypelist" class="form-control">
+                    
+                </select>
             </div>
         </div>
         
         <div class="form-group">
-            <label class="control-label col-md-12">Number of adults</label>
-            <div class="col-md-12">
-               <select id="numberofadult" class="form-control" required data-ng-model="household.numberofadults" data-ng-options="choice.Value as choice.Value for choice in numberofadults"></select>
+            <label class="control-label col-md-4">{{ 'numberofadults' | translate }}</label>
+            <div class="col-md-1">
+               <select id="numberofadult" class="form-control" required ng-model="household.numberofadults" ng-options="choice.Value as choice.Value for choice in numberofadults"></select>
             </div>
         </div>
 
 
         <div class="form-group">
-            <label class="control-label col-md-12">Number of Children</label>
-            <div class="col-md-12">
-               <select id="numberofchildren" class="form-control" data-ng-model="household.numberofchildrens" data-ng-options="choice.Value as choice.Value for choice in numberofchildrens"></select>
+            <label class="control-label col-md-4">{{ 'numberofchildren' | translate }}</label>
+            <div class="col-md-1">
+               <select id="numberofchildren" class="form-control" ng-model="household.numberofchildrens" ng-options="choice.Value as choice.Value for choice in numberofchildrens"></select>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-12">Number of Bedroom</label>
-            <div class="col-md-12">
-               <select id="numberofbedroom" required class="form-control" data-ng-model="household.numberofbedrooms" data-ng-options="choice.Value as choice.Value for choice in numberofbedrooms"></select>
+            <label class="control-label col-md-4">{{ 'numberofbedroom' | translate }}</label>
+            <div class="col-md-1">
+               <select id="numberofbedroom" required class="form-control" ng-model="household.numberofbedrooms" ng-options="choice.Value as choice.Value for choice in numberofbedrooms"></select>
             </div>
         </div>
-     
 
-     
-    
+       <h4>{{ 'tariff' | translate }} &raquo;</h4>
+
       <div class="form-group">
-            <label class="control-label col-md-12">Electricity Provider</label>
-            <div class="col-md-12">
-                <select data-ng-model="household.electricityprovider" id="electricityproviderlist" class="form-control">
+            <label class="control-label col-md-4">{{ 'electricityprovider' | translate }}</label>
+            <div class="col-md-3">
+                <select ng-model="household.electricityprovider" id="electricityproviderlist" class="form-control">
                     
                 </select>
             </div>
         </div>
       <div class="form-group">
-            <label class="control-label col-md-12">Tarrif</label>
-            <div class="col-md-12">
-                <select data-ng-model="household.tarrif" id="tarriflist" class="form-control">
+            <label class="control-label col-md-4">{{ 'tariff' | translate }}</label>
+            <div class="col-md-3">
+                <select ng-model="household.tarrif" id="tarriflist" class="form-control">
                    
                 </select>
             </div>
         </div>
-   
+
         <hr />
 
         <div class="row">
             <div class="col-md-12">
-                <a style="width:100%;" data-ng-disabled="houseHold.$invalid" data-ng-click="saveproperty()" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Save</a>
+                <a data-ng-disabled="houseHold.$invalid" ng-click="saveproperty()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check"></i> {{ 'save' | translate }}</a>
+                <input type="reset" style="display:none" id="resetbutton" value="" />
             </div>
         </div>
-        <br />
     </form>
+
 
 <style>
     label
     {
         margin-bottom:3px !important;
     }
+
+    .form-horizontal .control-label {
+text-align: left;
+font-size: 12px;
+}
+
+    .form-group {
+margin-bottom: 2px;
+}
+    hr {
+margin-top: 5px;
+margin-bottom: 3px;
+}
 </style>
 
 

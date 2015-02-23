@@ -7,16 +7,22 @@
     hr {
         margin-top: 9px;
     }
+
+
+    #weather2
+    {
+        display:none;
+    }
 </style>
 <div class="row">
     <div id="CurrentDate"></div>
 </div>
-<h4>Alert Configuration</h4>
+<h4>{{ 'alertconfiguration' | translate }}</h4>
 <hr />
 
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h5>High Usage - Hour</h5>
+        <h5>{{ 'highUsagehour' | translate }}</h5>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <bs-switch  
@@ -29,7 +35,7 @@
 <br />
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h5>High Usage - Day</h5>
+        <h5>{{ 'highusageday' | translate }}</h5>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
        
@@ -94,8 +100,8 @@
 <hr />
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a class="btn btn-success" data-ng-click="savealert()"><i class="fa fa-check"></i>&nbsp;Save Alert</a>
-        <a href="#/graph" class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;cancel</a>
+        <a class="btn btn-success" data-ng-click="savealert()"><i class="fa fa-check"></i>&nbsp; {{ 'save' | translate }} {{ 'alert' | translate }}</a>
+        <a href="#/graph" class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;{{ 'cancel' | translate }}</a>
     </div>
 </div>
 

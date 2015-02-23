@@ -59,7 +59,7 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
 
         
 
-                log.info("Alert Fetched Successfully");
+       
                 
 
             },

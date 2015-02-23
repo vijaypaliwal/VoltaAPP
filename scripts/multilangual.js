@@ -65,7 +65,7 @@ app.config(function ($translateProvider) {
         adults: 'Adults',
         region: 'Region',
         startdate: 'Start Date',
-        captureddata : 'Captured Data ',
+        captureddata: 'Captured Data ',
         days: 'days',
         breaksindate: 'Breaks in Date',
         spentsince: 'spent since start of monitoring',
@@ -101,6 +101,13 @@ app.config(function ($translateProvider) {
         peak: 'peak',
         offpeak: 'Off Peak',
         saver: 'Saver',
+        monitorhistory: 'Monitor History',
+        usedsofartoday: 'Used so far today',
+        changeyourpassword: 'Change Your Password',
+        usebelowform: 'Use Below form to change your password',
+        update: 'Update',
+        account: 'Account',
+        save: 'Save'
     })
 
         //Russian Translation
@@ -208,6 +215,13 @@ app.config(function ($translateProvider) {
         peak: 'На пике',
         offpeak: 'OffВне пика',
         saver: 'Экономный',
+        monitorhistory: 'монитор История',
+        usedsofartoday: 'используемые до сих пор сегодня',
+        changeyourpassword: 'Изменить пароль',
+        usebelowform: 'Используйте форму ниже, чтобы изменить свой пароль',
+        update: 'обновление',
+        account: 'счет',
+        save: 'Сохранить'
 
     })
 
@@ -315,6 +329,13 @@ app.config(function ($translateProvider) {
         peak: 'pico',
         offpeak: 'fuera de pico',
         saver: 'ahorrador',
+        monitorhistory: 'Historia del monitor',
+        usedsofartoday: 'utilizado hasta ahora hoy',
+        changeyourpassword: 'Cambiar la contraseña',
+        usebelowform: 'Используйте форму ниже, чтобы изменить свой пароль',
+        update: 'actualización',
+        account: 'cuenta',
+        save: 'Guardar',
     });
     $translateProvider.preferredLanguage('en');
 });

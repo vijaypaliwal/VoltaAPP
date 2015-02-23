@@ -27,14 +27,44 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
     };
 
 
+    $.ajax({
+        url: 'http://54.154.64.51:8080/voltaware/v1.0/me',
+        type: "GET",
+        accept: "application/json",
+    
+        headers: {
+            'Authorization': 'Bearer ' + $scope.AuthToken
+        },
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (response, status) {
 
-   $scope.savealert = function () {
+            debugger;
+            $scope.account.firstname = response.firstName
+            $scope.account.lastname = response.lastName
+            $scope.$apply();
+
+        },
+        error: function (err) {
+
+
+            log.error("Error::" + err.statusText);
+
+            debugger;
+
+
+        }
+    })
+
+
+
+   $scope.updateprofile = function () {
 
    $.ajax({
-            url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/alert',
-            type: "POST",
+            url: 'http://54.154.64.51:8080/voltaware/v1.0/users/' + $scope.uid,
+            type: "PUT",
             accept: "application/json",
-            data: JSON.stringify({ "hourAlert": $scope.alert.highusagehr, "dayAlert": $scope.alert.highusageday, "emailAlert" : $scope.alert.emailAlert }),
+            data: JSON.stringify({ "firstName": $scope.account.firstname, "lastName": $scope.account.lastname, "emailAddress": $scope.account.email, "title": "MR" }),
             headers: {
                 'Authorization': 'Bearer ' + $scope.AuthToken
             },
@@ -45,7 +75,7 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
 
                 debugger;
 
-                log.info("Alert Added Successfully");
+                log.info("Profile Updated successfully");
                 debugger;
 
             },
@@ -61,18 +91,6 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
         })
 
    }
-
-
-    
-
-
-
-
-   
-
-
-        
-
 
 }]);
 

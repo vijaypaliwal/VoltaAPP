@@ -449,10 +449,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
          
         },
         error: function (xhr, status) {
-            alert("Propert Get Error");
-            debugger;
-            log.error(xhr.responseText)
-
+       
 
         }
     });

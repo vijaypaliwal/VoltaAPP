@@ -246,7 +246,7 @@
 
 
 </head>
-<body onload="onLoad()" data-ng-controller="indexController">
+<body data-ng-controller="indexController">
 
     <nav style="color: #fff;" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -261,10 +261,10 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul data-ng-show="authentication.isAuth" class="nav navbar-nav">
                     <li><a href="#/graph"><i class="fa fa-home"></i>&nbsp;{{ 'home' | translate }} </a></li>
-                     <li><a href="#/household"><i class="fa fa-database"></i>&nbsp;{{ 'household' | translate }}</a></li>
+                     <li><a href="#/household"><i class="fa fa-database"></i>&nbsp;{{ 'householdprofile' | translate }}</a></li>
                     <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i>&nbsp;{{ 'alerts' | translate }}</a></li>
-                    <li><a href="#/changepassword"><i class="fa fa-unlock"></i>&nbsp;Change Password </a></li>
-                     <li><a href="#/account"><i class="fa fa-cog"></i>&nbsp;Account</a></li>
+                    <li><a href="#/changepassword"><i class="fa fa-unlock"></i>&nbsp;{{ 'changeyourpassword' | translate }}</a></li>
+                     <li><a href="#/account"><i class="fa fa-cog"></i>&nbsp;{{ 'account' | translate }}</a></li>
                     <!--    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
                     <li><a href="#/alert">{{ 'alerts' | translate }}</a></li>
                     <li><a href="#/comparison">Comparison View</a></li>
@@ -328,7 +328,7 @@
 
 
 
-   <script src="scripts/cordova.js"></script>
+ <script src="scripts/cordova.js"></script>
 
   
 
