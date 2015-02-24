@@ -10,6 +10,9 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
     $scope.AuthToken = authData.token;
 
 
+    $scope.Isaddressrecord = true;
+
+
     $scope.account = {
         accountnumber: "",
         title: "",
@@ -22,7 +25,12 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
         region: "",
         post: "",
         country: "",
-        email: $scope.email
+        email: $scope.email,
+        numberofadults: "",
+        numberofchildren: "",
+        numberofrooms: "",
+        propertytypeid: 0,
+        propertytypename:"",
      
     };
 
@@ -58,6 +66,94 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
 
 
 
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property',
+        contentType: "application/json; charset=utf-8",
+        headers: {
+            'Authorization': 'Bearer ' + $scope.AuthToken
+        },
+        success: function (json) {
+
+
+          
+
+            debugger;
+
+       
+
+            var data = "";
+
+
+            for (var i = json.length - 1; i >= 0; i--)
+            {
+              
+                if (json[i].address != null)
+                {
+                    data = json[i];
+                    break;
+                }
+            }
+
+
+            if (i != 0)
+            {
+                if (data != null) {
+                    $scope.account.numberofadults = data.numberAdults;
+                    $scope.account.numberofchildren = data.numberChildren;
+                    $scope.account.numberofrooms = data.numberBedrooms;
+                    $scope.$apply();
+                }
+
+
+                if (data.propertyType != null) {
+                    $scope.account.propertytypeid = data.propertyType.id;
+                    $scope.account.propertytypename = data.propertyType.name;
+                    $scope.$apply();
+
+                }
+
+
+                if (data.address != null) {
+
+                    $scope.account.housename = data.address.houseNumber;
+                    $scope.account.address1 = data.address.addressLine1;
+                    $scope.account.address2 = data.address.addressLine2;
+                    $scope.account.town = data.address.city;
+                    $scope.account.region = data.address.region;
+                    $scope.account.country = data.address.country;
+                    $scope.account.post = data.address.postcode;
+                    $scope.$apply();
+                }
+
+
+                if (data.address == null)
+                {
+                    $scope.Isaddressrecord = false;
+                    $scope.$apply();
+                }
+
+            }
+            else {
+                log.error("No Data found for this profile");
+            }
+
+        },
+        error: function (xhr, status) {
+
+
+         
+
+            debugger;
+            log.error(xhr)
+
+
+        }
+    });
+
+
+
    $scope.updateprofile = function () {
 
    $.ajax({
@@ -79,16 +175,59 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
                 debugger;
 
             },
-            error: function (err) {
+            error: function (xhr) {
 
 
-                log.error("Error::" + err.statusText);
+                if (xhr.status == 200 && xhr.status < 300) {
+                    log.success("Profile Updated successfully");
+                }
 
-                debugger;
+                else {
+                    log.error(xhr.responseText)
+                }
 
 
             }
-        })
+   })
+
+ 
+
+
+   if ($scope.Isaddressrecord == false) {
+
+   $.ajax({
+       url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property',
+       type: "POST",
+       accept: "application/json",
+       data: JSON.stringify({"numberBedrooms": $scope.account.numberofrooms, "numberAdults": $scope.account.numberofadults, "numberChildren": $scope.account.numberofchildren, "propertyType": { "id": $scope.account.propertytypeid, "name": $scope.account.propertytypename }, "address": { "houseNumber": $scope.account.housename, "addressLine1": $scope.account.address1, "addressLine2": $scope.account.address2, "postcode": $scope.account.post, "region": $scope.account.region, "city": $scope.account.town, "country": $scope.account.country }, "sensor": { "serialNumber": "ABBB12509" }}),
+       headers: {
+           'Authorization': 'Bearer ' + $scope.AuthToken
+       },
+       dataType: "json",
+       contentType: "application/json; charset=utf-8",
+       success: function (response, status) {
+
+
+       
+           debugger;
+
+           log.success("Profile Updated Successfully");
+           debugger;
+
+       },
+       error: function (err) {
+
+      
+           debugger;
+
+
+           log.error("Error::" + err.statusText);
+
+
+       }
+   })
+
+   }
 
    }
 

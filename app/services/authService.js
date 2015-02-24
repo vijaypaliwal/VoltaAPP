@@ -68,9 +68,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
                     {
                         debugger;
-
-               
-
+                        
                         _authentication.sensorId = response1.id;
 
                         localStorageService.set('authorizationData', { token: response.oauth2AccessToken.access_token, sid: _authentication.sensorId, uid: _authentication.userId, userName: response.apiUser.emailAddress, name:response.apiUser.firstName, refreshToken: response.refresh_token, useRefreshTokens: true, expireIn: 100000 });

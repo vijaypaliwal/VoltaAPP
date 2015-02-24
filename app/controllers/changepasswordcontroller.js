@@ -15,7 +15,8 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
 
     $scope.cp = {
         oldpassword: "",
-        newpassword: ""
+        newpassword: "",
+        confirmpassword: ""
     };
     $scope.tokenvalue = "";
 
@@ -40,7 +41,11 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
             success: function (response, status)
             {
              
-                 log.success("Password changed successfully")
+                log.success("Password changed successfully");
+                $scope.cp.newpassword = "";
+                $scope.cp.oldpassword = "";
+                $scope.cp.confirmpassword = "";
+                $scope.$apply();
             },
             error: function (xhr) {
 
@@ -52,7 +57,8 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
                     log.success("Password changed successfully");
                     $scope.cp.newpassword="";
                     $scope.cp.oldpassword = "";
-
+                    $scope.cp.confirmpassword = "";
+                    $scope.$apply();
                 }
 
                 else
@@ -68,6 +74,29 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
 
      
     };
+
+    $('#changepasswordbutton').prop('disabled', true);
+
+    $scope.matchpassword = function () {
+
+
+        if ($scope.cp.newpassword == $scope.cp.confirmpassword && $scope.cp.confirmpassword != null && $scope.cp.confirmpassword != "")
+        {
+            $('#changepasswordbutton').prop('disabled', false);
+        }
+
+        else {
+
+            $('#changepasswordbutton').prop('disabled', true);
+
+        }
+
+    }
+
+    setInterval(function () { $scope.matchpassword(); }, 1000);
+
+
+    
 
   
  

@@ -104,7 +104,7 @@ app.config(function ($translateProvider) {
         monitorhistory: 'Monitor History',
         usedsofartoday: 'Used so far today',
         changeyourpassword: 'Change Your Password',
-        usebelowform: 'Use Below form to change your password',
+        usebelowform: 'Please Use the form below to change your password',
         update: 'Update',
         account: 'Account',
         save: 'Save'
@@ -218,7 +218,7 @@ app.config(function ($translateProvider) {
         monitorhistory: 'монитор История',
         usedsofartoday: 'используемые до сих пор сегодня',
         changeyourpassword: 'Изменить пароль',
-        usebelowform: 'Используйте форму ниже, чтобы изменить свой пароль',
+        usebelowform: 'пожалуйста Используйте форму ниже, чтобы изменить свой пароль',
         update: 'обновление',
         account: 'счет',
         save: 'Сохранить'
@@ -332,7 +332,7 @@ app.config(function ($translateProvider) {
         monitorhistory: 'Historia del monitor',
         usedsofartoday: 'utilizado hasta ahora hoy',
         changeyourpassword: 'Cambiar la contraseña',
-        usebelowform: 'Используйте форму ниже, чтобы изменить свой пароль',
+        usebelowform: 'Por Favor Используйте форму ниже, чтобы изменить свой пароль',
         update: 'actualización',
         account: 'cuenta',
         save: 'Guardar',
