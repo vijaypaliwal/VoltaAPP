@@ -26,24 +26,6 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
 
-
-    //alert($scope.isauth);
-
-    //alert($scope.uid);
-
-    //alert($scope.sid);
-
-    //alert($scope.acctoken);
-
-
-
-    //if (isauth == false) {
-    //    authService.logOut();
-    //    $location.path('/home');
-    //    log.info("You are not Authorize yet. Please Login or Register your Account")
-
-    //}
-
     $scope.furl = 'http://54.154.64.51:8080/voltaware/v1.0/' + 'user/' + $scope.uid + '/sensor/' + $scope.sid + '/powerinfo/graphtoday';
 
     $scope.surl = 'http://54.154.64.51:8080/voltaware/v1.0/' + 'user/' + $scope.uid + '/sensor/' + $scope.sid + '/powerinfo/now'
@@ -70,6 +52,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     var userLang = navigator.language || navigator.userLanguage;
 
     $scope.myculture = function (culture) {
+
+     
 
         if (culture == "ru" || culture == "ru-ru") {
             $scope.culturedateformat = "DD MMM YYYY";
@@ -599,32 +583,6 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             }
 
 
-            //if ($scope.graphname == "24hrs" || $scope.graphname == "30days") {
-
-            //    for (var i = 0; i < data.listPower.length; i++) {
-            //        if ((parseInt(i )% 3) == 0) {
-            //            xData.push(parseFloat(data.listPower[i].power));
-            //            yData.push(new Date(data.listPower[i].timestamp));
-            //        }
-
-            //    }
-
-            //}
-
-
-            //else {
-
-
-
-            //    for (var i = 0; i < data.listPower.length; i++) {
-            //        xData.push(parseFloat(data.listPower[i].power));
-            //        yData.push(new Date(data.listPower[i].timestamp));
-            //    }
-            //}
-
-
-         
-
 
             switch ($scope.graphname) {
 
@@ -645,15 +603,13 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     var ad = new Date(aftdate);
                     $scope.datetoshow = moment(ad).format("MMM YYYY");
 
-                  
-                
-                  
                     break;
                 case "6month":
+                    debugger;
                     $scope.graphstep = 1;
                     var predate = $scope.previousdate;
                     var pd = new Date(predate);
-                    $scope.previousdate = moment(pd).format("MMM YYYY");
+                    $scope.previousdate = moment(yData[yData.length - 1]).format("MMM YYYY");
 
                     var aftdate = $scope.datetoshow;
                     var ad = new Date(aftdate);
@@ -665,7 +621,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
                     var predate = $scope.previousdate;
                     var pd = new Date(predate);
-                    $scope.previousdate = moment(pd).format("MMM YYYY");
+                    $scope.previousdate = moment(yData[yData.length - 1]).format("MMM YYYY");
 
                     var aftdate = $scope.datetoshow;
                     var ad = new Date(aftdate);
@@ -673,6 +629,13 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
                     break;
             }
+
+
+            Highcharts.setOptions({               
+                global: {
+                    useUTC: false
+                }
+            });
 
             $('#container1').highcharts({
                 chart: {
@@ -692,7 +655,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     categories: yData,
                     tickLength: 7,
                     reversed: true,
-                    type: 'datetime',
+                    type: 'date',
                   
                     title: 'Last 24 Hours Detail',
                     lineWidth: 0,
@@ -724,8 +687,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                    
                 },
                 yAxis: {
-                    min: 0,
-                
+                                   
                     title: {
                         text: 'kWh'
                     },
@@ -758,7 +720,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     }
                 },
                 series: [{
-                    name: $scope.previousdate +'-'+ $scope.datetoshow ,
+                    name: $scope.previousdate + '-' + $scope.datetoshow,
                     data: xData
                 }]
             });
@@ -830,8 +792,10 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 $scope.getmonth(false); break;
             case 4:
                 if ($scope.isFirstTime) {
-                    $scope.previousdate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 180);
+                      $scope.previousdate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 180);
+                    //$scope.previousdate = moment(moment.subtract(moment(todaydate).date(1), -1)).add(6, "months");
                     $scope.previousdate = moment($scope.previousdate).format($scope.culturedateformat);
+                      
                     $scope.isFirstTime = false;
                 }  
                   
