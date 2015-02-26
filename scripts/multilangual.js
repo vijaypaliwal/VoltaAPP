@@ -92,9 +92,9 @@ app.config(function ($translateProvider) {
         emailaddress: 'Email address',
         confirmemailaddress: 'Confirm email address',
         currentusage: 'Current Usage',
-        howdoyoucompare: 'How do you Compare',
+        howdoyoucompare: 'How do you compare',
         youbased: 'you (based on your history)',
-        other2beds: 'Other 2 Bed flats naborwides',
+        other2beds: 'Other 2 bed flats in your neighbourhood',
         yourregion: 'Your region as an average',
         now: 'Now',
         cycle: 'Cycle',
@@ -107,7 +107,8 @@ app.config(function ($translateProvider) {
         usebelowform: 'Please use the form below to change your password',
         update: 'Update',
         account: 'Account',
-        save: 'Save'
+        save: 'Save',
+        emailforalerts: 'Email for alerts'
     })
 
         //Russian Translation
@@ -219,7 +220,8 @@ app.config(function ($translateProvider) {
         usebelowform: 'пожалуйста Используйте форму ниже, чтобы изменить свой пароль',
         update: 'обновление',
         account: 'счет',
-        save: 'Сохранить'
+        save: 'Сохранить',
+        emailforalerts: 'Адрес электронной почты для оповещения'
 
     })
 
@@ -334,6 +336,7 @@ app.config(function ($translateProvider) {
         update: 'actualización',
         account: 'cuenta',
         save: 'Guardar',
+        emailforalerts: 'Correo electrónico las alertas'
     });
     $translateProvider.preferredLanguage('en');
 });

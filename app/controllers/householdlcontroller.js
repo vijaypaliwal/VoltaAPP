@@ -140,7 +140,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
         error: function (xhr, status) {
 
          
-            debugger;
+         
         }
     });
 
@@ -158,6 +158,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
             success: function (tarrif) { 
                 $('#tarriflist').empty();
                 var i = 0;
+                $('#tarriflist').append($('<option>').text("Select your provider").attr('value', ""));
                 for (i = 0; i < tarrif.listTariff.length; i++) {
                     $('#tarriflist').append($('<option>').text(tarrif.listTariff[i].name).attr('value', tarrif.listTariff[i].id));
                 }
@@ -165,7 +166,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
             error: function (xhr, status) {
 
           
-                debugger;
+           
 
               
             }
@@ -199,7 +200,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
             error: function (xhr, status) {
 
 
-                debugger;
+              
 
 
             }
@@ -254,7 +255,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
 
             
 
-                log.success("House hold profile successfully. ");
+                log.success("House hold profile updated successfully. ");
                 debugger;
                 if ($("#electricityproviderlist").val() != "")
                 {
@@ -270,7 +271,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
                         contentType: "application/json; charset=utf-8",
                         success: function (response, status) {
 
-                            log.info("link property to a tariff successfully. ");
+                         
                             debugger;
 
                         },

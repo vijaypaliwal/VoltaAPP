@@ -51,8 +51,6 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
 
               
 
-           
-
                 if (xhr.status == 200 && xhr.status < 300) {
                     log.success("Password changed successfully");
                     $scope.cp.newpassword="";

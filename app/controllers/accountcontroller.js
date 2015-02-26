@@ -10,7 +10,7 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
     $scope.AuthToken = authData.token;
 
 
-    $scope.Isaddressrecord = true;
+    $scope.editmode = true;
 
 
     $scope.account = {
@@ -125,6 +125,11 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
 
                 if (data.propertyType == null)
                 {
+                    alert("Is property type");
+
+                    debugger;
+
+
                     $scope.editmode = false;   
                     $scope.$apply();
                 }
@@ -182,7 +187,7 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
             }
    })
 
- 
+   alert($scope.editmode);
 
 
    if ($scope.editmode == false) {
@@ -191,7 +196,7 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
        url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property',
        type: "POST",
        accept: "application/json",
-       data: JSON.stringify({"numberBedrooms": $scope.account.numberofrooms, "numberAdults": $scope.account.numberofadults, "numberChildren": $scope.account.numberofchildren, "propertyType": { "id": $scope.account.propertytypeid, "name": $scope.account.propertytypename }, "address": { "houseNumber": $scope.account.housename, "addressLine1": $scope.account.address1, "addressLine2": $scope.account.address2, "postcode": $scope.account.post, "region": $scope.account.region, "city": $scope.account.town, "country": $scope.account.country }, "sensor": { "serialNumber": "ABBB12509" }}),
+       data: JSON.stringify({"numberBedrooms": $scope.account.numberofrooms, "numberAdults": $scope.account.numberofadults, "numberChildren": $scope.account.numberofchildren, "address": { "houseNumber": $scope.account.housename, "addressLine1": $scope.account.address1, "addressLine2": $scope.account.address2, "postcode": $scope.account.post, "region": $scope.account.region, "city": $scope.account.town, "country": $scope.account.country }, "sensor": { "serialNumber": "ABBB12509" }}),
        headers: {
            'Authorization': 'Bearer ' + $scope.AuthToken
        },
@@ -231,7 +236,7 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
            url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property/' + $scope.account.propertytypeid,
            type: "PUT",
            accept: "application/json",
-           data: JSON.stringify({ "numberBedrooms": $scope.account.numberofrooms, "numberAdults": $scope.account.numberofadults, "numberChildren": $scope.account.numberofchildren, "propertyType": { "id": $scope.account.propertytypeid, "name": $scope.account.propertytypename }, "address": { "houseNumber": $scope.account.housename, "addressLine1": $scope.account.address1, "addressLine2": $scope.account.address2, "postcode": $scope.account.post, "region": $scope.account.region, "city": $scope.account.town, "country": $scope.account.country }, "sensor": { "serialNumber": "ABBB12509" } }),
+           data: JSON.stringify({ "numberBedrooms": $scope.account.numberofrooms, "numberAdults": $scope.account.numberofadults, "numberChildren": $scope.account.numberofchildren, "address": { "houseNumber": $scope.account.housename, "addressLine1": $scope.account.address1, "addressLine2": $scope.account.address2, "postcode": $scope.account.post, "region": $scope.account.region, "city": $scope.account.town, "country": $scope.account.country }, "sensor": { "serialNumber": "ABBB12509" } }),
            headers: {
                'Authorization': 'Bearer ' + $scope.AuthToken
            },

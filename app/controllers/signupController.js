@@ -38,6 +38,9 @@ app.controller('signupController', ['$scope', '$location', 'authService', 'ngAut
         },
          function (response) {
 
+
+             debugger;
+
          
 
              if (response.status == "409") {
@@ -46,8 +49,10 @@ app.controller('signupController', ['$scope', '$location', 'authService', 'ngAut
 
              }
 
-             else {
-                 log.error("Some thing went wrong")
+             else
+             {
+
+             log.error(response.responseText)
 
              }
             
