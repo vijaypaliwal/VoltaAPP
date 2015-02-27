@@ -47,30 +47,45 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.culturedateformat = "DD-MM-YYYY";
 
 
+
+
     $scope.graphname = "24hrs";
 
     var userLang = navigator.language || navigator.userLanguage;
 
+
+
     $scope.myculture = function (culture) {
 
+        //moment.lang('ru');
 
+        if (culture == 'it') {
 
-        if (culture == "ru" || culture == "ru-ru") {
+      
+    
             $scope.culturedateformat = "DD MMM YYYY";
-
-            $("#CurrentDate").html("<b>" + moment(new Date()).format("llll") + "</b>");
-
+            var currentdate = moment(new Date()).format("DD MMM YYYY");
+            var newarray = currentdate.split(" ");
+            if (newarray[1] == "Feb") {
+                newarray[1] = "Февраль";
+            }
+            if (newarray[1] == "Mar") {
+                newarray[1] = "Март";
+            }
+            var toConvertedString = newarray[0] + " " + newarray[1] + " " + newarray[2];
+            $("#CurrentDate").html("<b>" + toConvertedString + "</b>");
+       
         }
 
         else {
-            $scope.culturedateformat = "DD MMM YYYY";
-            $("#CurrentDate").html("<b>" + moment(new Date()).format("llll") + "</b>");
+
+            $("#CurrentDate").html("<b>" + moment(new Date()).format("DD MMM YYYY") + "</b>");
+
         }
-        $scope.datetoshow = moment(new Date()).format($scope.culturedateformat);
 
 
     }
-    $scope.myculture(userLang);
+  
 
 
     var twoyearago = new Date();
@@ -80,15 +95,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
 
-    if (userLang == "es" || "ru" || "ru-ru") {
 
-        $("#CurrentDate").html("<b>" + moment(new Date()).format("DD MMM YYYY,h:mm:ss a") + "</b>");
-
-    }
-
-    else {
-        $("#CurrentDate").html("<b>" + moment(new Date()).format("DD MMM YYYY,h:mm:ss a") + "</b>");
-    }
 
 
 
@@ -154,6 +161,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
     $scope.datetoshow = moment(todaydate).format($scope.culturedateformat);
+
+    $scope.datetoshowlabel = new Date();
 
     var preDate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 1);
     $scope.previousdate = moment(preDate).format($scope.culturedateformat);
@@ -232,16 +241,23 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
     $scope.updateFormateforGraphforLang = function () {
+        userLang = selectedlanguage;
+
+
+
         switch (userLang) {
-            case "ru-ru":
-            case "ru":
+
+            case "it":
+                $scope.kwhtext = 'кВт/час';
                 Highcharts.setOptions({
                     lang: {
                         months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                        weekdays: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
+                        weekdays: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+                        shortMonths: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
                     }
                 }); break;
             case "sp":
+                $scope.kwhtext = 'KWh';
                 Highcharts.setOptions({
                     lang: {
                         loading: 'Aguarde...',
@@ -264,7 +280,17 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     }
                 });
                 break;
-            default: break;
+            default:
+                $scope.kwhtext = 'KWh';
+                Highcharts.setOptions({
+                    lang: {
+                        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octomber', 'November', 'December'],
+                        weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                        shortMonths: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'july', 'aug', 'sep', 'oct', 'nov', 'dec'],
+                    }
+                });
+                break;
+
         }
 
     }
@@ -412,10 +438,12 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     };
 
 
+
+
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property/' + 18,
+        url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property',
         contentType: "application/json; charset=utf-8",
         headers: {
             'Authorization': 'Bearer ' + $scope.AuthToken
@@ -427,7 +455,41 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             debugger;
 
 
-            $scope.tariffname = json.tariff.electricityProviderXML.name + ' ' + json.tariff.electricityProviderXML.nation;
+            var data = json.length == 0 ? null : json[json.length - 1];
+
+
+
+            if (data != null) {
+
+                $scope.propertytypeid = data.id;
+                $scope.$apply();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property/' + $scope.propertytypeid,
+                    contentType: "application/json; charset=utf-8",
+                    headers: {
+                        'Authorization': 'Bearer ' + $scope.AuthToken
+                    },
+                    success: function (json) {
+
+
+
+                        debugger;
+
+
+                        $scope.tariffname = json.tariff.electricityProviderXML.name + ' ' + json.tariff.electricityProviderXML.nation;
+                        $scope.$apply();
+
+
+                    },
+                    error: function (xhr, status) {
+
+
+                    }
+                });
+            }
+
 
 
 
@@ -435,8 +497,23 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         error: function (xhr, status) {
 
 
+
+
+            debugger;
+
+
+
         }
     });
+
+
+
+
+
+
+
+
+
 
 
     $scope.gettodaycounter = function () {
@@ -535,6 +612,80 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     $scope.now = currenttime
 
+    function cycle() {
+
+
+
+
+        if ($scope.now < 6) {
+
+            if (selectedlanguage == "it") {
+
+                $scope.cycle = "OffВне пика";
+
+
+            }
+
+            else if (selectedlanguage == "sp") {
+
+                $scope.cycle = "fuera de pico"
+                $scope.kwhtext = 'кВт/час';
+            }
+
+            else {
+                $scope.cycle = "Off Peak";
+                $scope.kwhtext = 'KWh';
+            }
+
+
+            $scope.$apply();
+        }
+        else if ($scope.now >= 6 && $scope.now < 18) {
+            if (selectedlanguage == "it") {
+
+                $scope.cycle = "На пике"
+
+            }
+
+            else if (selectedlanguage == "sp") {
+
+                $scope.cycle = "pico"
+
+            }
+
+            else {
+                $scope.cycle = "Peak"
+            }
+            $scope.$apply();
+        }
+        else {
+            if (selectedlanguage == "it") {
+
+                $scope.cycle = "Экономный"
+
+            }
+
+            else if (selectedlanguage == "sp") {
+
+                $scope.cycle = "ahorrador"
+
+            }
+
+            else {
+                $scope.cycle = "Saver"
+            }
+            $scope.$apply();
+        }
+
+        $scope.updateFormateforGraphforLang();
+
+        $scope.myculture(selectedlanguage);
+    }
+
+
+
+
+    setInterval(function () { cycle() }, 1000);
 
 
 
@@ -577,9 +728,9 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
             for (var i = 0; i < data.listPower.length; i++) {
-               // $("#allDates").append("<li>" + new Date(data.listPower[i].timestamp) + "</li>");
-               // $("#allDates").append("<li>" +new Date(moment(new Date(data.listPower[i].timestamp)).zone("+0500")) + "</li>");
-                xData.push(parseFloat(data.listPower[i].power));                
+                // $("#allDates").append("<li>" + new Date(data.listPower[i].timestamp) + "</li>");
+                // $("#allDates").append("<li>" +new Date(moment(new Date(data.listPower[i].timestamp)).zone("+0500")) + "</li>");
+                xData.push(parseFloat(data.listPower[i].power));
                 yData.push(new Date(data.listPower[i].timestamp));
             }
 
@@ -589,57 +740,80 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
                 case "24hrs":
-                    $scope.graphstep = 3;
-                    $scope.graphtooltip = '%a %e %b %Y - %H:%M';
+                    $scope.graphstep = 2;
+                    var predate = $scope.previousdate;
+                    var pd = new Date(predate);
+                    $scope.previousdate = moment(new Date(pd)).zone("+0000");
+
+                    var aftdate = $scope.datetoshow;
+                    var ad = new Date(aftdate);
+                    $scope.datetoshow = moment(new Date(yData[0])).zone("+0000");
+
+
+
+                    $scope.graphtooltip = '%e %b %Y - %H:%M';
+                    $scope.seriesformat = '%d %b %Y';
+
+                    $scope.datetoshowlabel = Highcharts.dateFormat($scope.seriesformat, $scope.datetoshow)
                     break;
 
                 case "7days":
                     $scope.graphstep = 1;
-                    $scope.previousdate = moment(yData[yData.length - 1]).zone("+0000").format("DD MMM YYYY");
-                    $scope.datetoshow = moment(yData[0]).zone("+0000").format("DD MMM YYYY");
-                    $scope.graphtooltip = '%a %e %b %Y';
+                    $scope.previousdate = moment(new Date(yData[yData.length - 1])).zone("+0000");
+                    //  $scope.previousdate = '%d %m %y'
+                    $scope.datetoshow = moment(new Date(yData[0])).zone("+0000");
+                    //   $scope.datetoshow = '%d %m %y'
+                    $scope.graphtooltip = '%e %b %Y';
+                    $scope.seriesformat = '%d %b %Y'
+                    $scope.datetoshowlabel = Highcharts.dateFormat($scope.seriesformat, $scope.datetoshow)
                     break;
                 case "30days":
                     $scope.graphstep = 7;
 
                     var predate = $scope.previousdate;
                     var pd = new Date(predate);
-                    $scope.previousdate = moment(pd).zone("+0000").format("MMM YYYY");
+                    $scope.previousdate = moment(new Date(pd)).zone("+0000");
 
                     var aftdate = $scope.datetoshow;
                     var ad = new Date(aftdate);
-                    $scope.datetoshow = moment(yData[0]).zone("+0000").format("MMM YYYY");
+                    $scope.datetoshow = moment(new Date(yData[0])).zone("+0000");
                     $scope.graphtooltip = '%e %b %Y';
+                    $scope.seriesformat = '%d %b %Y'
+                    $scope.datetoshowlabel = Highcharts.dateFormat($scope.seriesformat, $scope.datetoshow)
                     break;
                 case "6month":
                     debugger;
                     $scope.graphstep = 1;
                     var predate = $scope.previousdate;
                     var pd = new Date(predate);
-                    $scope.previousdate = moment(yData[yData.length - 1]).zone("+0000").format("MMM YYYY");
+                    $scope.previousdate = moment(new Date(yData[yData.length - 1])).zone("+0000");
 
                     var aftdate = $scope.datetoshow;
                     var ad = new Date(aftdate);
                     // $scope.datetoshow = moment(ad).format("MMM YYYY");
-                    $scope.datetoshow = moment(yData[0]).zone("+0000").format("MMM YYYY");
+                    $scope.datetoshow = moment(new Date(yData[0])).zone("+0000");
                     $scope.graphtooltip = '%b %Y';
+                    $scope.seriesformat = '%b %Y'
+                    $scope.datetoshowlabel = Highcharts.dateFormat($scope.seriesformat, $scope.datetoshow)
                     break;
                 case "1year":
 
 
 
-                    $scope.graphstep = 1;
+                    $scope.graphstep = 2;
 
 
                     var predate = $scope.previousdate;
                     var pd = new Date(predate);
-                    $scope.previousdate = moment(yData[yData.length - 1]).zone("+0000").format("MMM YYYY");
+                    $scope.previousdate = moment(new Date(yData[yData.length - 1])).zone("+0000");
 
                     var aftdate = $scope.datetoshow;
                     var ad = new Date(aftdate);
                     //  $scope.datetoshow = moment(ad).format("MMM YYYY");
-                    $scope.datetoshow = moment(yData[0]).zone("+0000").format("MMM YYYY");
+                    $scope.datetoshow = moment(new Date(yData[0])).zone("+0000");
                     $scope.graphtooltip = '%b %Y';
+                    $scope.seriesformat = '%b %Y'
+                    $scope.datetoshowlabel = Highcharts.dateFormat($scope.seriesformat, $scope.datetoshow)
                     break;
             }
 
@@ -647,7 +821,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             Highcharts.setOptions({
                 global: {
                     useUTC: true,
-                     
+
                 }
             });
 
@@ -677,7 +851,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     tickmarkPlacement: 'on',
                     tickInterval: $scope.graphstep,
                     labels: {
-                         format: $scope.graphdateformat,
+                        format: $scope.graphdateformat,
                         style: {
                             fontSize: '6px',
                         },
@@ -686,7 +860,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 yAxis: {
 
                     title: {
-                        text: 'kWh'
+                        text: $scope.kwhtext
                     },
                     labels: {
                         style: {
@@ -696,11 +870,11 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     }
                 },
 
- 
+
                 tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.x:'+$scope.graphtooltip+'} </span><table>',
+                    headerFormat: '<span style="font-size:10px">{point.x:' + $scope.graphtooltip + '} </span><table>',
                     pointFormat: '<tr>' +
-                        '<td style="padding:0"><b>{point.y:.1f} Kwh</b></td></tr>',
+                        '<td style="padding:0"><b>{point.y:.1f} ' + $scope.kwhtext + '</b></td></tr>',
                     footerFormat: '</table>',
                     shared: true,
                     useHTML: true
@@ -715,7 +889,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     }
                 },
                 series: [{
-                    name: $scope.previousdate + '-' + $scope.datetoshow,
+                    name: Highcharts.dateFormat($scope.seriesformat, $scope.previousdate) + '-' + Highcharts.dateFormat($scope.seriesformat, $scope.datetoshow),
                     data: xData
                 }]
             });
@@ -788,7 +962,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 if ($scope.isFirstTime) {
                     //$scope.previousdate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate() - 180);
                     $scope.previousdate = moment(todaydate).subtract(6, "months");
-                  
+
                     $scope.previousdate = moment($scope.previousdate).format($scope.culturedateformat);
 
                     $scope.isFirstTime = false;

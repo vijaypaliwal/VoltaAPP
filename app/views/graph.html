@@ -76,7 +76,7 @@
         <p style="margin-bottom: 10px;"><span class="label label-default">{{ 'tariff' | translate }}</span></p>
 
         <p>{{tariffname}}</p>
-        <p>{{ 'cycle' | translate }} {{ 'peak' | translate }}</p>
+        <p>{{ 'cycle' | translate }}-{{cycle}}</p>
 
     </div>
 
@@ -184,7 +184,7 @@
                                 </a>
                             </div>
 
-                            <div style="text-align: center;" class="col-md-6 col-xs-6">{{datetoshow}}</div>
+                            <div style="text-align: center;" class="col-md-6 col-xs-6">{{datetoshowlabel}}</div>
                             <div style="text-align: right" class="col-md-3 col-xs-3">
                                 <a id="rightarrow" style="display: none; padding: 0px 10px 0px 10px;" data-ng-click="getonedayafter()" class="btn btn-info">
                                     <i class="fa fa-chevron-right"></i>
@@ -350,3 +350,7 @@
 </div>
 
 
+
+
+
+	

@@ -83,7 +83,6 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
         success: function (json) {
 
 
-          
 
             debugger;
 
@@ -125,9 +124,7 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
 
                 if (data.propertyType == null)
                 {
-                    alert("Is property type");
-
-                    debugger;
+                
 
 
                     $scope.editmode = false;   
@@ -187,7 +184,7 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
             }
    })
 
-   alert($scope.editmode);
+
 
 
    if ($scope.editmode == false) {
@@ -230,8 +227,7 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
    if ($scope.editmode == true) {
 
 
-       alert($scope.account.propertytypeid);
-
+   
        $.ajax({
            url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property/' + $scope.account.propertytypeid,
            type: "PUT",

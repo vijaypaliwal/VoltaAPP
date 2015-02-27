@@ -1,4 +1,6 @@
-﻿'use strict';
+﻿var selectedlanguage = "";
+
+'use strict';
 
 app.controller('indexController', ['$scope', '$location', 'authService', 'log', '$translate',  function ($scope, $location, authService, log, $translate)
 {
@@ -56,7 +58,7 @@ app.controller('indexController', ['$scope', '$location', 'authService', 'log', 
 
     $scope.changeLanguage = function (langKey) {
 
-     
+        selectedlanguage = langKey;
 
         if (langKey == "it") {
             $scope.languageText = "Русский";
