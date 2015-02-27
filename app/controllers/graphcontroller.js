@@ -57,12 +57,11 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     $scope.myculture = function (culture) {
 
-        //moment.lang('ru');
+     
 
         if (culture == 'it') {
 
       
-    
             $scope.culturedateformat = "DD MMM YYYY";
             var currentdate = moment(new Date()).format("DD MMM YYYY");
             var newarray = currentdate.split(" ");
@@ -743,7 +742,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     $scope.graphstep = 2;
                     var predate = $scope.previousdate;
                     var pd = new Date(predate);
-                    $scope.previousdate = moment(new Date(pd)).zone("+0000");
+                    $scope.previousdate = moment(new Date(yData[yData.length - 1])).zone("+0000");
 
                     var aftdate = $scope.datetoshow;
                     var ad = new Date(aftdate);
@@ -772,7 +771,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
                     var predate = $scope.previousdate;
                     var pd = new Date(predate);
-                    $scope.previousdate = moment(new Date(pd)).zone("+0000");
+                    $scope.previousdate = moment(new Date(yData[yData.length - 1])).zone("+0000");
 
                     var aftdate = $scope.datetoshow;
                     var ad = new Date(aftdate);
