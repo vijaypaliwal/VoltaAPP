@@ -34,7 +34,9 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
      
     };
 
-  
+    $scope.currentselectedlanguage = "en"
+
+    setInterval(function () { $scope.currentselectedlanguage = selectedlanguage }, 500);
 
 
     $.ajax({
@@ -165,7 +167,10 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
             success: function (response, status) {
 
 
-                log.info("Demographic details Updated successfully");
+
+
+
+            
                 
 
             },
@@ -173,7 +178,7 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
 
 
                 if (xhr.status == 200 && xhr.status < 300) {
-                    log.info("Demographic details Updated successfully");
+                  
                 }
 
                 else {
@@ -203,10 +208,16 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
 
 
        
-           debugger;
+           if ($scope.currentselectedlanguage == "it") {
 
-           log.success("Account details Updated Successfully");
-           debugger;
+               log.info("Банковские реквизиты успешно обновлены");
+
+           }
+           else {
+
+               log.info("Account details updated successfully");
+
+           }
 
        },
        error: function (err) {
@@ -242,10 +253,16 @@ app.controller('accountcontroller', ['$scope', 'log', 'localStorageService', fun
 
 
 
-               debugger;
+               if ($scope.currentselectedlanguage == "it") {
 
-               log.success("Account details Updated Successfully");
-               debugger;
+                   log.info("Банковские реквизиты успешно обновлены");
+
+               }
+               else {
+
+                   log.info("Account details updated successfully");
+
+               }
 
            },
            error: function (err) {

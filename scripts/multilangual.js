@@ -93,7 +93,7 @@ app.config(function ($translateProvider) {
         confirmemailaddress: 'Confirm email address',
         currentusage: 'Current Usage',
         howdoyoucompare: 'How do you compare',
-        youbased: 'you (based on your history)',
+        youbased: 'You (based on your history)',
         other2beds: 'Other 2 bed flats in your neighbourhood',
         yourregion: 'Your region as an average',
         now: 'Now',
@@ -108,7 +108,10 @@ app.config(function ($translateProvider) {
         update: 'Update',
         account: 'Account',
         save: 'Save',
-        emailforalerts: 'Email for alerts'
+        emailforalerts: 'Email for alerts',
+        oldpassword: 'Old password',
+        newpassword: 'New password',
+        confirmnewpassword: 'Confirm new password',
     })
 
         //Russian Translation
@@ -221,7 +224,10 @@ app.config(function ($translateProvider) {
         update: 'обновление',
         account: 'счет',
         save: 'Сохранить',
-        emailforalerts: 'Адрес электронной почты для оповещения'
+        emailforalerts: 'Адрес электронной почты для оповещения',
+        oldpassword: 'Старый пароль',
+        newpassword: 'Новый пароль',
+        confirmnewpassword: 'Подтвердите новый пароль',
 
     })
 
@@ -336,7 +342,10 @@ app.config(function ($translateProvider) {
         update: 'actualización',
         account: 'cuenta',
         save: 'Guardar',
-        emailforalerts: 'Correo electrónico las alertas'
+        emailforalerts: 'Correo electrónico las alertas',
+        oldpassword: 'contraseña anterior',
+        newpassword: 'nueva contraseña',
+        confirmnewpassword: 'Confirmar nueva contraseña',
     });
     $translateProvider.preferredLanguage('en');
 });

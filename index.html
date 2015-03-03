@@ -282,13 +282,13 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a ng-click="changeLanguage('en')">
+                                <li><a class="languagechanger" ng-click="changeLanguage('en')">
                                     <img style="width: 25px;" src="usa.png" alt="Alternate Text" />
                                     English</a> </li>
-                                <li><a ng-click="changeLanguage('it')">
+                                <li><a class="languagechanger" ng-click="changeLanguage('it')">
                                     <img src="RussianFlag.gif" alt="Alternate Text" />
                                     {{ 'russiantext' | translate }}</a> </li>
-                                <li><a ng-click="changeLanguage('sp')">
+                                <li><a class="languagechanger" ng-click="changeLanguage('sp')">
                                     <img src="spain.png" alt="Alternate Text" />
                                     {{ 'spanishtext' | translate }}</a> </li>
                             </ul>
@@ -455,7 +455,7 @@
 
         function onDeviceReady() {
             document.addEventListener("backbutton", onBackKeyDown, false); //Listen to the User clicking on the back button
-            document.addEventListener("offline", function () { document.getElementById("nointernet").innerHTML = "an error has occurred"; $(".nointernet").show() }, false);
+            document.addEventListener("offline", function () { document.getElementById("nointernet").innerHTML = "No internet available"; $(".nointernet").show() }, false);
             document.addEventListener("online", function ()
             {}, false);
         }

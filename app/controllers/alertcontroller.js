@@ -9,7 +9,9 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
     $scope.uid = authData.uid;
     $scope.AuthToken = authData.token;
 
+    $scope.currentselectedlanguage = "en"
 
+    setInterval(function () { $scope.currentselectedlanguage = selectedlanguage }, 500);
     $scope.alert = {
         highusagehr: false,
         highusageday: false,
@@ -78,7 +80,6 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
         $scope.savealert = function () {
 
      
-       
 
         $.ajax({
             url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/alert',
@@ -92,11 +93,20 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
             contentType: "application/json; charset=utf-8",
             success: function (response, status) {
 
+                if ($scope.currentselectedlanguage == "it") {
 
-                debugger;
+                    log.info("Предупреждение успешно добавлен");
 
-                log.info("Alert Added Successfully");
-                debugger;
+                }
+                else {
+
+                    log.info("Alert Added Successfully");
+
+                }
+            
+
+             
+            
 
             },
             error: function (err) {
@@ -104,7 +114,7 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
 
                 log.error("Error::" + err.statusText);
 
-                debugger;
+            
 
 
             }
@@ -114,23 +124,7 @@ app.controller('alertcontroller', ['$scope', 'log', 'localStorageService', funct
 
 
     
-
-
-
-
-        //setTimeout(function () {
-
-
-          
-
-
-        //  //  $("input[type='checkbox']").bootstrapSwitch();
-
-        //    $('#hr').attr('checked', $scope.alert.highusagehr); // Checks it
-        //    $('#day').attr('checked', $scope.alert.highusageday);
-        //}, 1500);
-
-
+    
 
         
 

@@ -1,4 +1,4 @@
-
+﻿
 'use strict';
 
 var ChangepasswordURL = "http://54.154.64.51:8080/voltaware/v1.0/users/"
@@ -20,10 +20,13 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
     };
     $scope.tokenvalue = "";
 
+    $scope.currentselectedlanguage = "en"
+
     $scope.authentication = authService.authentication;
 
+      
 
-  
+    setInterval(function () { $scope.currentselectedlanguage = selectedlanguage }, 500);
 
     $scope.changepassword = function () {
     
@@ -40,8 +43,19 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
              dataType: "json",
             success: function (response, status)
             {
+
+                if ($scope.currentselectedlanguage == "it") {
+
+                    log.success("Пароль успешно изменен");
+
+                }
+                else {
+
+                    log.success("Password changed successfully");
+
+                }
              
-                log.success("Password changed successfully");
+              
                 $scope.cp.newpassword = "";
                 $scope.cp.oldpassword = "";
                 $scope.cp.confirmpassword = "";
@@ -52,7 +66,16 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
               
 
                 if (xhr.status == 200 && xhr.status < 300) {
-                    log.success("Password changed successfully");
+                    if ($scope.currentselectedlanguage == "it") {
+
+                        log.success("Пароль успешно изменен");
+
+                    }
+                    else {
+
+                        log.success("Password changed successfully");
+
+                    }
                     $scope.cp.newpassword="";
                     $scope.cp.oldpassword = "";
                     $scope.cp.confirmpassword = "";

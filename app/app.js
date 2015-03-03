@@ -95,16 +95,16 @@ app.factory('log', function () {
     };
     return {
         success: function (text) {
-            toastr.success(text, "Success");
+            toastr.success(text, "");
         },
         error: function (text) {
-            toastr.error(text, "Error");
+            toastr.error(text, "");
         },
         info: function (text) {
-            toastr.info(text, "Info");
+            toastr.info(text, "");
         },
         warning: function (text) {
-            toastr.warning(text, "Warning");
+            toastr.warning(text, "");
         },
     };
 });

@@ -23,6 +23,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     $scope.rememberme = authData.remember;
 
+   
+
 
 
 
@@ -47,7 +49,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.culturedateformat = "DD-MM-YYYY";
 
 
-
+    $scope.languagechangecounter = 0;
 
     $scope.graphname = "24hrs";
 
@@ -62,23 +64,34 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         if (culture == 'it') {
 
       
-            $scope.culturedateformat = "DD MMM YYYY";
-            var currentdate = moment(new Date()).format("DD MMM YYYY");
+            $scope.culturedateformat = "DD MMM YYYY h:mm a";
+            var currentdate = moment(new Date()).format("DD MMM YYYY h:mm a");
             var newarray = currentdate.split(" ");
-            if (newarray[1] == "Feb") {
+
+          
+            if (newarray[1] == "Feb")
+            {
                 newarray[1] = "Февраль";
             }
-            if (newarray[1] == "Mar") {
+            if (newarray[1] == "Mar")
+            {
                 newarray[1] = "Март";
             }
-            var toConvertedString = newarray[0] + " " + newarray[1] + " " + newarray[2];
+            if (newarray[4] == "am") {
+                newarray[4] = "я";
+            }
+
+            if (newarray[4] == "pm") {
+                newarray[4] = "вечера";
+            }
+            var toConvertedString = newarray[0] + " " + newarray[1] + " " + newarray[2] + " " + newarray[3] + " " + newarray[4];
             $("#CurrentDate").html("<b>" + toConvertedString + "</b>");
        
         }
 
         else {
 
-            $("#CurrentDate").html("<b>" + moment(new Date()).format("DD MMM YYYY") + "</b>");
+            $("#CurrentDate").html("<b>" + moment(new Date()).format("DD MMM YYYY h:mm a") + "</b>");
 
         }
 
@@ -89,10 +102,6 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
     var twoyearago = new Date();
     twoyearago.setDate(twoyearago.getDate() - 730);
-
-
-
-
 
 
 
@@ -257,27 +266,13 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 }); break;
             case "sp":
                 $scope.kwhtext = 'KWh';
-                Highcharts.setOptions({
+              Highcharts.setOptions({
                     lang: {
-                        loading: 'Aguarde...',
-                        months: ['enero', 'febrero', 'marzo', 'Abril', 'mayo', 'junio', 'julio', 'Agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
-                        weekdays: ['Domingo', 'segundo', 'tercera', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                        shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'Mayo', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                        exportButtonTitle: "Exportar",
-                        printButtonTitle: "Imprimir",
-                        rangeSelectorFrom: "De",
-                        rangeSelectorTo: "Até",
-                        rangeSelectorZoom: "Periodo",
-                        downloadPNG: 'Download imagem PNG',
-                        downloadJPEG: 'Download imagem JPEG',
-                        downloadPDF: 'Download documento PDF',
-                        downloadSVG: 'Download imagem SVG'
-                        // resetZoom: "Reset",
-                        // resetZoomTitle: "Reset,
-                        // thousandsSep: ".",
-                        // decimalPoint: ','
+                        months: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+                        weekdays: ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'],
+                        shortMonths: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
                     }
-                });
+                }); break;
                 break;
             default:
                 $scope.kwhtext = 'KWh';
@@ -285,7 +280,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     lang: {
                         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octomber', 'November', 'December'],
                         weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-                        shortMonths: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'july', 'aug', 'sep', 'oct', 'nov', 'dec'],
+                        shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                     }
                 });
                 break;
@@ -597,11 +592,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     };
 
 
-    $(window).on("orientationchange", function () {
-        $scope.getsecondgraph();
-        $scope.GetMyData(1);
-        $scope.getsecondgraph();
-    });
+   
 
 
 
@@ -679,6 +670,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $scope.updateFormateforGraphforLang();
 
         $scope.myculture(selectedlanguage);
+
+    
     }
 
 
@@ -718,7 +711,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
         $http.get($scope.bottomgraphurl, null, { headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + $scope.AuthToken } }).success(function (data) {
 
 
-
+        
 
 
             var xData = [];
@@ -895,7 +888,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
 
-            debugger;
+         
 
 
 
@@ -1066,69 +1059,136 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
         switch ($scope.ActiveButton) {
             case 1:
-                $scope.daystoIncrease = $scope.daystoIncrease + 1;
-                onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
-                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 1))
-                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
-                $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
-                $scope.isDateRangeSelected = true;
 
-                $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
+                var onedayAgocheck = new Date();
+                var x = $scope.daystoIncrease;
 
-                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+                x = x + 1;
+                onedayAgocheck = onedayAgocheck.setDate(onedayAgocheck.getDate() - x);
 
-                if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
-                    $("#rightarrow").show()
+
+                if (new Date(twoyearago) <= new Date(onedayAgocheck)) {
+
+
+                    $scope.daystoIncrease = $scope.daystoIncrease + 1;
+                    onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
+                    onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 1))
+                    $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+                    $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
+                    $scope.isDateRangeSelected = true;
+
+                    $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
+
+                    $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+
+                    if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
+                        $("#rightarrow").show()
+                    }
+                    else {
+                        $("#rightarrow").hide()
+
+                    }
+
+                    $scope.get24hrs(true);
                 }
+
                 else {
-                    $("#rightarrow").hide()
+
+
+                    log.info("can't go back any further");
 
                 }
 
-                $scope.get24hrs(true);
+
+               
                 break;
             case 2:
-                $scope.daystoIncrease = $scope.daystoIncrease + 7;
-                onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
 
 
-                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 7))
-                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+                var onedayAgocheck = new Date();
+                var x = $scope.daystoIncrease;
+
+                x = x + 7;
+                onedayAgocheck = onedayAgocheck.setDate(onedayAgocheck.getDate() - x);
+
+                if (new Date(twoyearago) <= new Date(onedayAgocheck)) {
+
+
+                    $scope.daystoIncrease = $scope.daystoIncrease + 7;
+                    onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
+
+
+                    onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 7))
+                    $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
 
 
 
-                $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
-                $scope.isDateRangeSelected = true;
-                $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
+                    $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
+                    $scope.isDateRangeSelected = true;
+                    $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
 
-                if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
-                    $("#rightarrow").show()
+                    if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
+                        $("#rightarrow").show()
+                    }
+                    else {
+                        $("#rightarrow").hide()
+
+                    }
+                    $scope.get7days(true);
                 }
+
                 else {
-                    $("#rightarrow").hide()
+
+
+                    log.info("can't go back any further");
 
                 }
-                $scope.get7days(true); break;
+
+
+             break;
             case 3:
-                $scope.daystoIncrease = $scope.daystoIncrease + (32 - new Date(onedayAgo.getYear(), onedayAgo.getMonth(), 32).getDate());
-                onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
 
 
-                onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 30))
-                $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+                var onedayAgocheck = new Date();
+                var x = $scope.daystoIncrease;
 
-                $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
-                $scope.isDateRangeSelected = true;
-                $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
+                x = x + 30;
+                onedayAgocheck = onedayAgocheck.setDate(onedayAgocheck.getDate() - x);
 
-                if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
-                    $("#rightarrow").show()
+
+                if (new Date(twoyearago) <= new Date(onedayAgocheck)) {
+
+
+                    $scope.daystoIncrease = $scope.daystoIncrease + (32 - new Date(onedayAgo.getYear(), onedayAgo.getMonth(), 32).getDate());
+                    onedayAgo = onedayAgo.setDate(onedayAgo.getDate() - $scope.daystoIncrease);
+
+
+                    onedaybefore = onedaybefore.setDate(onedaybefore.getDate() - ($scope.daystoIncrease + 30))
+                    $scope.previousdate = moment(onedaybefore).format($scope.culturedateformat);
+
+                    $scope.onedayapidate = moment(onedayAgo).format("DD-MM-YYYY");
+                    $scope.isDateRangeSelected = true;
+                    $scope.datetoshow = moment(onedayAgo).format($scope.culturedateformat);
+
+                    if (moment(partodaydate).format($scope.culturedateformat) != moment(onedayAgo).format($scope.culturedateformat)) {
+                        $("#rightarrow").show()
+                    }
+                    else {
+                        $("#rightarrow").hide()
+
+                    }
+                    $scope.getmonth(true);
                 }
+
                 else {
-                    $("#rightarrow").hide()
+
+
+                    log.info("can't go back any further");
 
                 }
-                $scope.getmonth(true); break;
+
+                break;
+              
             case 4:
 
 
@@ -1386,6 +1446,17 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.getexpectedgcounter();
     $scope.getdailyavgcounter();
     $scope.GetMyData(1);
+
+   
+
+    $(".languagechanger").click(function () {
+        setTimeout(function () {
+
+            $scope.FirstTimeClick(1);
+           // FirstTimeClick(1)
+        }, 1500);
+        
+    });
 
 
     //setInterval(function () { $scope.gettodaycounter(); }, 10000);

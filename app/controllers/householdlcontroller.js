@@ -5,6 +5,30 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
 
     var authData = localStorageService.get('authorizationData');
 
+    $scope.currentselectedlanguage = "en"
+    setInterval(function () {
+
+        $scope.currentselectedlanguage = selectedlanguage
+
+        if (selectedlanguage == "it") {
+            $scope.selectpropertytext = "выбрать Тип жилья";
+            $scope.electricityprovidertext = "выбрать Энергопровайдер"
+            $scope.providertext = "выбрать ваш поставщик"
+        }
+
+        else {
+            $scope.selectpropertytext = "Select property type";
+            $scope.electricityprovidertext = "Select electricity provider"
+            $scope.providertext = "Select your provider"
+        }
+
+     
+
+    }, 100);
+
+
+  
+
 
     $scope.uid = authData.uid;
     $scope.token = authData.token;
@@ -27,122 +51,132 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
     $scope.numberofchildrens = [{ Id: 0, Value: "0" }, { Id: 1, Value: "1" }, { Id: 2, Value: "2" }, { Id: 3, Value: "3" }, { Id: 4, Value: "4" }, { Id: 5, Value: "5" }, { Id: 6, Value: "6" }, { Id: 7, Value: "7" }, { Id: 8, Value: "8" }, { Id: 9, Value: "9" }, { Id: 10, Value: "10" }];
     $scope.numberofbedrooms = [{ Id: 0, Value: "0" }, { Id: 1, Value: "1" }, { Id: 2, Value: "2" }, { Id: 3, Value: "3" }, { Id: 4, Value: "4" }, { Id: 5, Value: "5" }, { Id: 6, Value: "6" }, { Id: 7, Value: "7" }, { Id: 8, Value: "8" }, { Id: 9, Value: "9" }, { Id: 10, Value: "10" }];
 
+    $scope.getpropertyvalue = function () {
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property',
+            contentType: "application/json; charset=utf-8",
+            headers: {
+                'Authorization': 'Bearer ' + $scope.token
+            },
+            success: function (json) {
+
+                var data = json.length == 0 ? null : json[json.length - 1];
+
+                debugger;
+
+                if (data != null) {
+
+                    $scope.propertyID = data.id;
+                    $scope.iseditmode = true;
+
+                    $scope.household.propertytype = data.propertyType.id;
+                    $scope.household.numberofadults = data.numberAdults;
+                    $scope.household.numberofchildrens = data.numberChildren;
+                    $scope.household.numberofbedrooms = data.numberBedrooms;
+                    $scope.household.tarrif = data.tariff.id;
+                    $scope.household.electricityprovider = data.tariff.electricityProviderXML.id;
 
 
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property',
-        contentType: "application/json; charset=utf-8",
-        headers: {
-            'Authorization': 'Bearer ' + $scope.token
-        },
-        success: function (json) {
 
-            var data = json.length == 0 ? null : json[json.length - 1];
+                    $('#Propertytypelist option[value="' + $scope.household.propertytype + '"]').prop('selected', true);
+                    $('#numberofadult option[value="' + $scope.household.numberofadults + '"]').prop('selected', true);
+                    $('#numberofchildren option[value="' + $scope.household.numberofchildrens + '"]').prop('selected', true);
+                    $('#numberofbedroom option[value="' + $scope.household.numberofbedrooms + '"]').prop('selected', true);
+                    $('#electricityproviderlist option[value="' + $scope.household.electricityprovider + '"]').prop('selected', true);
+                    $('#tarriflist option[value="' + $scope.household.tarrif + '"]').prop('selected', true);
 
-            debugger;
+                    $scope.getselectedtariff();
+                    $scope.$apply();
 
-            if (data != null) {
 
-                $scope.propertyID = data.id;
-                $scope.iseditmode = true;
 
-               $scope.household.propertytype = data.propertyType.id;
-                $scope.household.numberofadults = data.numberAdults;
-                $scope.household.numberofchildrens = data.numberChildren;
-                $scope.household.numberofbedrooms = data.numberBedrooms;
-                $scope.household.tarrif = data.tariff.id;
-                $scope.household.electricityprovider = data.tariff.electricityProviderXML.id;
+                }
 
-             
 
-                $('#Propertytypelist option[value="' + $scope.household.propertytype + '"]').prop('selected', true);
-                $('#numberofadult option[value="' + $scope.household.numberofadults + '"]').prop('selected', true);
-                $('#numberofchildren option[value="' + $scope.household.numberofchildrens + '"]').prop('selected', true);
-                $('#numberofbedroom option[value="' + $scope.household.numberofbedrooms + '"]').prop('selected', true);
-                $('#electricityproviderlist option[value="' + $scope.household.electricityprovider + '"]').prop('selected', true);
-                $('#tarriflist option[value="' + $scope.household.tarrif + '"]').prop('selected', true);
 
-                $scope.getselectedtariff();
-                $scope.$apply();
-                
-               
+                debugger;
+
+            },
+            error: function (xhr, status) {
+
+                debugger;
+                log.error(xhr)
+
 
             }
+        });
+
+    }
+
+ 
 
 
-        
-            debugger;
-
-        },
-        error: function (xhr, status) {
-           
-            debugger;
-            log.error(xhr)
-
-
-        }
-    });
+    $scope.getpropertytype = function ()
+    {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: 'http://54.154.64.51:8080/voltaware/v1.0/property_type',
+            contentType: "application/json; charset=utf-8",
+            success: function (json) {
 
 
+                $('#Propertytypelist').empty();
+                var i = 0;
+                $('#Propertytypelist').append($('<option>').text($scope.selectpropertytext).attr('value', ""));
+                for (i = 0; i < json.length; i++) {
+                    $('#Propertytypelist').append($('<option>').text(json[i].name).attr('value', json[i].id));
+                }
 
 
 
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: 'http://54.154.64.51:8080/voltaware/v1.0/property_type',
-        contentType: "application/json; charset=utf-8",
-        success: function (json) {
+                debugger;
 
-       
-           $('#Propertytypelist').empty();
-           var i = 0;
-           $('#Propertytypelist').append($('<option>').text("Select Property type").attr('value', ""));
-            for (i = 0; i < json.length; i++) {
-                $('#Propertytypelist').append($('<option>').text(json[i].name).attr('value', json[i].id));
+
+
+            },
+            error: function (xhr, status) {
+
+                log.error(xhr)
+
+
             }
-
-        
-
-            debugger;
-
-          
-
-        },
-        error: function (xhr, status) {
-
-            log.error(xhr)
+        });
+    }
 
 
-        }
-    });
+    $scope.getelectricityprovider = function ()
+    {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: 'http://54.154.64.51:8080/voltaware/v1.0/electricityprovider',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                $('#electricityproviderlist').empty();
+                var i = 0;
+                $('#electricityproviderlist').append($('<option>').text($scope.electricityprovidertext).attr('value', ""));
+                for (i = 0; i < data.length; i++) {
+                    $('#electricityproviderlist').append($('<option>').text(data[i].name).attr('value', data[i].id));
+                }
+
+
+            },
+            error: function (xhr, status) {
+
+
+
+            }
+        });
+    }
 
    
 
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: 'http://54.154.64.51:8080/voltaware/v1.0/electricityprovider',
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-
-            $('#electricityproviderlist').empty();
-            var i = 0;
-              $('#electricityproviderlist').append($('<option>').text("Select electricity provider").attr('value',""));
-            for (i = 0; i < data.length; i++) {
-                $('#electricityproviderlist').append($('<option>').text(data[i].name).attr('value', data[i].id));
-            }
  
-
-        },
-        error: function (xhr, status) {
-
-         
-         
-        }
-    });
 
 
 
@@ -158,7 +192,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
             success: function (tarrif) { 
                 $('#tarriflist').empty();
                 var i = 0;
-                $('#tarriflist').append($('<option>').text("Select your provider").attr('value', ""));
+                $('#tarriflist').append($('<option>').text($scope.providertext).attr('value', ""));
                 for (i = 0; i < tarrif.listTariff.length; i++) {
                     $('#tarriflist').append($('<option>').text(tarrif.listTariff[i].name).attr('value', tarrif.listTariff[i].id));
                 }
@@ -239,66 +273,77 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
 
      
 
+        if ($("#Propertytypelist").val() != "")
+        {
+            $.ajax({
+                url: URL,
+                type: MethodTYPE,
+                accept: "application/json",
+                data: JSON.stringify({ "numberBedrooms": $scope.household.numberofbedrooms, "numberAdults": $scope.household.numberofadults, "numberChildren": $scope.household.numberofchildrens, "propertyType": { "id": $("#Propertytypelist").val(), "name": $("#Propertytypelist option:selected").text() } }),
+                headers: {
+                    'Authorization': 'Bearer ' + $scope.token
+                },
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response, status) {
 
-     
-        $.ajax({
-            url: URL,
-            type: MethodTYPE,
-            accept: "application/json",
-            data: JSON.stringify({ "numberBedrooms": $scope.household.numberofbedrooms, "numberAdults": $scope.household.numberofadults, "numberChildren": $scope.household.numberofchildrens, "propertyType": { "id": $("#Propertytypelist").val(), "name": $("#Propertytypelist option:selected").text() } }),
-            headers: {
-                'Authorization': 'Bearer ' + $scope.token
-            },
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (response, status) {
+                    if ($scope.currentselectedlanguage == "it") {
 
-            
+                        log.info("бытовые Профиль успешно обновлены");
 
-                log.success("House hold profile updated successfully. ");
-                debugger;
-                if ($("#electricityproviderlist").val() != "")
-                {
-                    $.ajax({
-                        url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property/' + response.id + '/tariff/' + $("#tarriflist").val(),
-                        type: "PUT",
-                        accept: "application/json",
+                    }
+                    else {
 
-                        headers: {
-                            'Authorization': 'Bearer ' + $scope.token
-                        },
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (response, status) {
+                        log.success("House hold profile updated successfully. ");
 
-                         
-                            debugger;
-
-                        },
-                        error: function (err) {
+                    }
 
 
-                            log.error("Error::" + err.statusText);
+                    debugger;
+                    if ($("#electricityproviderlist").val() != "" && $("#tarriflist").val() != "") {
+                        $.ajax({
+                            url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/property/' + response.id + '/tariff/' + $("#tarriflist").val(),
+                            type: "PUT",
+                            accept: "application/json",
+
+                            headers: {
+                                'Authorization': 'Bearer ' + $scope.token
+                            },
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response, status) {
 
 
-                        }
-                    });
+                                debugger;
+
+                            },
+                            error: function (err) {
+
+
+                                log.error("Error::" + err.statusText);
+
+
+                            }
+                        });
+                    }
+
+
+
+                    //  $('#houseHold').find("input[type=text], select").val("");
+
+                },
+                error: function (err) {
+
+
+
+                    log.error("Error::" + err);
+
+
                 }
-      
-               
-
-              //  $('#houseHold').find("input[type=text], select").val("");
-
-            },
-            error: function (err) {
-
-            
-
-                log.error("Error::" + err);
-
-                
-            }
-        })
+            })
+        }
+     
+    
 
     }
 
@@ -312,7 +357,23 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
 
 
    
+    $(".languagechanger").click(function () {
+        $scope.getpropertyvalue()
+        $scope.getpropertytype()
+        $scope.getelectricityprovider()
 
+        setTimeout(function () {
+            $('#Propertytypelist option[value="' + $scope.household.propertytype + '"]').prop('selected', true);
+            $('#electricityproviderlist option[value="' + $scope.household.electricityprovider + '"]').prop('selected', true);
+            $('#tarriflist option[value="' + $scope.household.tarrif + '"]').prop('selected', true);
+            $scope.$apply();
+        }, 2000);
+
+    });
+
+    $scope.getpropertyvalue();
+    $scope.getpropertytype();
+    $scope.getelectricityprovider();
 
 
 }]);

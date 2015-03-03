@@ -10,7 +10,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
 
     $scope.message = "";
 
- 
+    authService.logOut();
 
     $scope.login = function () {
 
