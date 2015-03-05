@@ -451,7 +451,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
             var data = json.length == 0 ? null : json[json.length - 1];
 
-
+            $scope.sensorid = data.sensor.id
 
             if (data != null) {
 
@@ -484,7 +484,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                 });
             }
 
-
+            $scope.utilizationinfo();
 
 
         },
@@ -504,10 +504,66 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
 
 
+    $scope.utilizationinfo = function () {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: 'http://54.154.64.51:8080/voltaware/v1.0/user/' + $scope.uid + '/sensor/' + $scope.sensorid + '/comparison',
+            contentType: "application/json; charset=utf-8",
+            headers: {
+                'Authorization': 'Bearer ' + $scope.AuthToken
+            },
+            success: function (response) {
 
 
+                $scope.percentage = response.percentage;
+                $scope.householdpercentage = response.percentegeHousehold;
+                $scope.$apply();
+                $scope.flagposition();
 
 
+            },
+            error: function (xhr, status) {
+
+                alert("error");
+                debugger;
+                log.error(xhr)
+
+
+            }
+        });
+    }
+
+
+    $scope.flagposition = function () {
+
+        debugger;
+        if ($scope.percentage < -10 && $scope.percentage > -50) {
+
+            $(".flag1").show()
+        }
+        else if ($scope.percentage > -10 && $scope.percentage < 10) {
+            $(".flag2").show()
+        }
+        else if ($scope.percentage > 10 && $scope.percentage < 50) {
+            $(".flag3").show()
+        }
+
+
+        if ($scope.householdpercentage < -10 && $scope.householdpercentage > -50) {
+
+            $(".flag4").show()
+        }
+        else if ($scope.householdpercentage > -10 && $scope.householdpercentage < 10) {
+            $(".flag5").show()
+        }
+        else if ($scope.householdpercentage > 10 && $scope.householdpercentage < 50) {
+            $(".flag6").show()
+        }
+
+       
+
+    }
 
 
     $scope.gettodaycounter = function () {
