@@ -7,6 +7,10 @@
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
     <title>Voltameter App </title>
     <link href="content/css/bootstrap.min.css" rel="stylesheet" />
+
+    
+     
+
     <link href="content/css/site.css" rel="stylesheet" />
     <link href="content/css/toastr.css" rel="stylesheet" />
     <link href="content/css/loading-bar.css" rel="stylesheet" />
@@ -256,15 +260,32 @@
                     <span><i class="glyphicon glyphicon-user"></i>&nbsp;{{ 'Hello' | translate }} &nbsp;<span data-ng-bind="authentication.name"></span>&nbsp;<i class="fa fa-th-list"></i></span>
                 </button>
                 <a class="navbar-brand">Volt@</a>
+
+                
+                    
+
+              
             </div>
 
+                <span data-ng-hide="authentication.isAuth" style="margin-top: 4px; position:absolute; right:15px; top:3px;  cursor: pointer; color:#000;">
+                            <span>Lan.- </span>
+                           &nbsp; <span ng-click="changeLanguage('en')">
+                                <img style="width:28px;" src="usa.png" alt="Alternate Text" /></span> &nbsp;
+                           <span ng-click="changeLanguage('it')">
+                               <img src="RussianFlag.gif" alt="Alternate Text" /></span>  &nbsp;
+                             <span ng-click="changeLanguage('sp')">
+                               <img src="spain.png" alt="Alternate Text" /></span>
+                        </span>
+
             <div id="navbar" class="navbar-collapse collapse">
+
                 <ul data-ng-show="authentication.isAuth" class="nav navbar-nav">
                     <li><a href="#/graph"><i class="fa fa-home"></i>&nbsp;{{ 'home' | translate }} </a></li>
                       <li><a href="#/alert"><i class="fa fa-exclamation-circle"></i>&nbsp;{{ 'alerts' | translate }}</a></li>
                       <li><a href="#/account"><i class="fa fa-cog"></i>&nbsp;{{ 'accountsetup' | translate }}</a></li>
                      <li><a href="#/household"><i class="fa fa-database"></i>&nbsp;{{ 'householdprofile' | translate }}</a></li>
                     <li><a href="#/changepassword"><i class="fa fa-unlock"></i>&nbsp;{{ 'changeyourpassword' | translate }}</a></li>
+
                    
                     <!--    <li><a href="#/household"><i class="fa fa-database"></i> {{ 'household' | translate }}</a></li>
                     <li><a href="#/alert">{{ 'alerts' | translate }}</a></li>
@@ -314,7 +335,7 @@
 
 
 
-
+                               
 
     <!--<div class='input-group date' id='datetimepicker1'>
                     <input type='text' class="form-control" />
@@ -329,7 +350,7 @@
 
 
 
-
+<script src="scripts/cordova.js"></script>
 
   
 
@@ -341,16 +362,22 @@
 
 
     <script src="scripts/bootstrap.min.js"></script>
+
+   
     <script src="scripts/bootbox.js"></script>
 
 
-
+      <link rel="stylesheet" type="text/css" href="http://craftpip.github.io/bootstrap-fullscreen-select/css/bootstrap-fullscreen-select.css" />
+    <script type="text/javascript" src="scripts/bootstrap-fullscreen-select.js"></script>
 
 
 
     <script src="scripts/toastr.js"></script>
 
     <script>
+
+    
+
         toastr.options = {
             "closeButton": true,
             "debug": false,

@@ -165,6 +165,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
     $scope.marginleft = 0;
 
     $scope.tariffname = "";
+    $scope.propertytypename = "";
+    $scope.bedcounter = 0;
 
 
 
@@ -451,7 +453,13 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
             var data = json.length == 0 ? null : json[json.length - 1];
 
-            $scope.sensorid = data.sensor.id
+            if (data.sensor != null) {
+                $scope.sensorid = data.sensor.id;
+            }
+         
+
+            $scope.propertytypename = data.propertyType.name;
+            $scope.bedcounter = data.numberBedrooms;
 
             if (data != null) {
 
@@ -467,11 +475,6 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     },
                     success: function (json) {
 
-
-
-                        debugger;
-
-
                         $scope.tariffname = json.tariff.electricityProviderXML.name + ' ' + json.tariff.electricityProviderXML.nation;
                         $scope.$apply();
 
@@ -483,6 +486,8 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
                     }
                 });
             }
+
+         
 
             $scope.utilizationinfo();
 
@@ -525,9 +530,7 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
             },
             error: function (xhr, status) {
 
-                alert("error");
-                debugger;
-                log.error(xhr)
+               
 
 
             }
@@ -727,18 +730,24 @@ app.controller('graphcontroller', ['$scope', '$http', 'authService', 'localStora
 
         $scope.myculture(selectedlanguage);
 
-    
     }
-
-
-
 
     setInterval(function () { cycle() }, 1000);
 
-
-
+ 
     $scope.marginleft = $scope.now * 4;
 
+    if ($scope.now == 23) {
+        $scope.marginleft = 77;
+    }
+
+    if ($scope.now == 22 || $scope.now == 21) {
+        $scope.marginleft = 70;
+    }
+
+    if ($scope.now == 20) {
+        $scope.marginleft = 67;
+    }
 
     if ($scope.now >= 20) {
         $(".leftnow").show()

@@ -111,7 +111,9 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
 
     }
 
- 
+  
+    
+   
 
 
     $scope.getpropertytype = function ()
@@ -126,12 +128,15 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
 
                 $('#Propertytypelist').empty();
                 var i = 0;
-                $('#Propertytypelist').append($('<option>').text($scope.selectpropertytext).attr('value', ""));
+              $('#Propertytypelist').append($('<option>').text($scope.selectpropertytext).attr('value', ""));
                 for (i = 0; i < json.length; i++) {
                     $('#Propertytypelist').append($('<option>').text(json[i].name).attr('value', json[i].id));
-                }
 
+                   }
 
+               
+                 
+            
 
                 debugger;
 
@@ -353,6 +358,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
         $('#electricityproviderlist option[value="' + $scope.household.electricityprovider + '"]').prop('selected', true);
         $('#tarriflist option[value="' + $scope.household.tarrif + '"]').prop('selected', true);
         $scope.$apply();
+        $('.mobileSelect').mobileSelect();
     }, 2000);
 
 
@@ -367,6 +373,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
             $('#electricityproviderlist option[value="' + $scope.household.electricityprovider + '"]').prop('selected', true);
             $('#tarriflist option[value="' + $scope.household.tarrif + '"]').prop('selected', true);
             $scope.$apply();
+         
         }, 2000);
 
     });
@@ -375,5 +382,6 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
     $scope.getpropertytype();
     $scope.getelectricityprovider();
 
-
+  
 }]);
+
