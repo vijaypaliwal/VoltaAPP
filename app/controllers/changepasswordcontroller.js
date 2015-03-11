@@ -29,43 +29,21 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
     setInterval(function () { $scope.currentselectedlanguage = selectedlanguage }, 500);
 
     $scope.changepassword = function () {
-    
-        $.ajax({
-            url: ChangepasswordURL + $scope.uid + "/password",// + $scope.cp.newpassword,
-            type: "PUT",
-            contentType: "application/json",
 
-            headers: {
-                'Authorization': 'Bearer ' + $scope.AuthToken
-            },
+        if ($scope.cp.newpassword == $scope.cp.confirmpassword && $scope.cp.confirmpassword != null && $scope.cp.confirmpassword != "") {
+            $.ajax({
+                url: ChangepasswordURL + $scope.uid + "/password",// + $scope.cp.newpassword,
+                type: "PUT",
+                contentType: "application/json",
 
-            data:JSON.stringify({ "password": $scope.cp.newpassword, "oldPassword": $scope.cp.oldpassword }),
-             dataType: "json",
-            success: function (response, status)
-            {
+                headers: {
+                    'Authorization': 'Bearer ' + $scope.AuthToken
+                },
 
-                if ($scope.currentselectedlanguage == "it") {
+                data: JSON.stringify({ "password": $scope.cp.newpassword, "oldPassword": $scope.cp.oldpassword }),
+                dataType: "json",
+                success: function (response, status) {
 
-                    log.success("Пароль успешно изменен");
-
-                }
-                else {
-
-                    log.success("Password changed successfully");
-
-                }
-             
-              
-                $scope.cp.newpassword = "";
-                $scope.cp.oldpassword = "";
-                $scope.cp.confirmpassword = "";
-                $scope.$apply();
-            },
-            error: function (xhr) {
-
-              
-
-                if (xhr.status == 200 && xhr.status < 300) {
                     if ($scope.currentselectedlanguage == "it") {
 
                         log.success("Пароль успешно изменен");
@@ -76,45 +54,61 @@ app.controller('changepasswordcontroller', ['$scope', '$location', 'authService'
                         log.success("Password changed successfully");
 
                     }
-                    $scope.cp.newpassword="";
+
+
+                    $scope.cp.newpassword = "";
                     $scope.cp.oldpassword = "";
                     $scope.cp.confirmpassword = "";
                     $scope.$apply();
-                }
+                },
+                error: function (xhr) {
 
-                else
-                {
-                    log.error(xhr.responseText)
-                }
-               
-            
-            }
-        })
 
+
+                    if (xhr.status == 200 && xhr.status < 300) {
+                        if ($scope.currentselectedlanguage == "it") {
+
+                            log.success("Пароль успешно изменен");
+
+                        }
+                        else {
+
+                            log.success("Password changed successfully");
+
+                        }
+                        $scope.cp.newpassword = "";
+                        $scope.cp.oldpassword = "";
+                        $scope.cp.confirmpassword = "";
+                        $scope.$apply();
+                    }
+
+                    else {
+                        log.error("some thing went wrong please try again")
+                    }
+
+
+                }
+            })
+        }
+    
+ 
+        else {
+
+         
+
+            log.error("The passwords you have entered do not match -please re-enter both.")
+            $scope.cp.newpassword = "";
+            $scope.cp.confirmpassword = "";
+            $scope.$apply();
+
+        }
       
-
      
     };
 
-    $('#changepasswordbutton').prop('disabled', true);
-
-    $scope.matchpassword = function () {
+ 
 
 
-        if ($scope.cp.newpassword == $scope.cp.confirmpassword && $scope.cp.confirmpassword != null && $scope.cp.confirmpassword != "")
-        {
-            $('#changepasswordbutton').prop('disabled', false);
-        }
-
-        else {
-
-            $('#changepasswordbutton').prop('disabled', true);
-
-        }
-
-    }
-
-    setInterval(function () { $scope.matchpassword(); }, 1000);
 
 
     

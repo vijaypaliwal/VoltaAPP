@@ -332,7 +332,10 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
                         });
                     }
 
-
+                    if ($("#electricityproviderlist").val() == "" || $("#tarriflist").val() == "")
+                    {
+                        log.info("Electricity provider is not updating");
+                    }
 
                     //  $('#houseHold').find("input[type=text], select").val("");
 
