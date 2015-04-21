@@ -93,7 +93,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
                     $('#electricityproviderlist option[value="' + $scope.household.electricityprovider + '"]').prop('selected', true);
                     $('#tarriflist option[value="' + $scope.household.tarrif + '"]').prop('selected', true);
 
-                    alert($scope.household.electricityprovider);
+                  
 
                   //  $scope.getselectedtariff();
                     $scope.$apply();
@@ -161,7 +161,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
 
     $scope.getareacode = function ()
     {
-        alert("aread code in");
+     
 
         $.ajax({
             type: "GET",
@@ -170,7 +170,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
             contentType: "application/json; charset=utf-8",
             success: function (data) {
 
-                alert("area code success");
+              
                 debugger;
 
                 $scope.areacode = data.areaCode;
@@ -267,7 +267,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
     $('#electricityproviderlist').on('change', function () {
         var electricityid = $('#electricityproviderlist option:selected').val();
 
-        alert(electricityid);
+      
  
         $.ajax({
             type: "GET",
@@ -281,7 +281,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
             contentType: "application/json; charset=utf-8",
             success: function (tarrif) {
 
-                alert("success");
+              
                 debugger;
                 $('#tarriflist').empty();
                 var i = 0;
@@ -293,8 +293,7 @@ app.controller('householdlcontroller', ['$scope', 'log', 'localStorageService', 
             error: function (xhr, status) {
 
           
-                alert("error");
-                debugger;
+              
 
               
             }
